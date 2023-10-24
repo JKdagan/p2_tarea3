@@ -1,6 +1,6 @@
 package Productos;
 
-abstract class Producto {
+public abstract class Producto {
 
     private int serie;
 

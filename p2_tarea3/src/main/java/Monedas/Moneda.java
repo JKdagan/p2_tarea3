@@ -1,6 +1,6 @@
 package Monedas;
 
-abstract class Moneda implements Comparable<Moneda> {
+public abstract class Moneda implements Comparable<Moneda> {
 
     private int serie;
 
