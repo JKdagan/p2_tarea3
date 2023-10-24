@@ -1,6 +1,7 @@
 package tarea3_logica;
 import java.util.ArrayList;
 
+import Excepciones.DepositoOcupadoException;
 import Excepciones.NoHayProductoException;
 import Excepciones.PagoIncorrectoException;
 import Excepciones.PagoInsuficienteException;
@@ -51,7 +52,11 @@ public class Expendedor {
         llenarDepositos(cantidadInicial);
     }
 
-    public void comprarProducto(Moneda m, ProductEnum cualProducto) throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException {
+    public void comprarProducto(Moneda m, ProductEnum cualProducto) throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
+
+        if (salida.getProducto() != null) {
+            throw new DepositoOcupadoException("El deposito de salida esta ocupado, retire el producto antes de la siguiente compra");
+        }
 
         int precio_producto = cualProducto.getPrecio();
 
@@ -110,6 +115,9 @@ public class Expendedor {
         }
     }
 
+    public Producto getProducto() {
+        return this.salida.getProducto();
+    }
 
 }
 

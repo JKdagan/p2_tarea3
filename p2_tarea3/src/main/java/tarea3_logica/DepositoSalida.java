@@ -1,5 +1,6 @@
 package tarea3_logica;
 
+import Excepciones.*;
 import Productos.*;
 
 public class DepositoSalida {
@@ -12,10 +13,16 @@ public class DepositoSalida {
 
     public Producto getProducto() {
         if (this.producto == null) return null;
-        return this.producto;
+
+        Producto aux = this.producto;
+        this.producto = null;
+        return aux;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(Producto producto) throws DepositoOcupadoException {
+        if (this.producto != null) {
+            throw new DepositoOcupadoException("El deposito de salida esta ocupado");
+        }
         this.producto = producto;
     }
 }
