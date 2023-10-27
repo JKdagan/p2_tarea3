@@ -18,6 +18,7 @@ public class PanelPrincipal extends JPanel {
         this.setBackground(color);
         this.add(exp);
         this.add(com);
+
         this.setLayout(new GridLayout(1,2));
 
 
