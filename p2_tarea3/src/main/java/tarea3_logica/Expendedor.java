@@ -10,7 +10,6 @@ import Productos.*;
 
 public class Expendedor {
 
-//  private ArrayList<Deposito> depositos;  Por Hacer
 
     private Deposito<Bebida> dep_cocacola;
     private Deposito<Bebida> dep_fanta;
