@@ -4,19 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelExpendedor extends JPanel {
-    private PanelExpCompra productocomprado;
+    private PanelExpCompra producto_comprado;
     private PanelExpDinero dinero;
     private PanelExpProductos productos;
 
-    public PanelExpendedor() {
-        super();
-    }
     public PanelExpendedor(Color color) {
         super();
-        productocomprado= new PanelExpCompra(Color.blue);
-        dinero= new PanelExpDinero(Color.orange);
-        productos=new PanelExpProductos(Color.magenta);
-        this.add(productocomprado);
+        this.producto_comprado = new PanelExpCompra(Color.blue);
+        this.dinero= new PanelExpDinero(Color.orange);
+        this.productos= new PanelExpProductos(Color.magenta);
+        this.add(producto_comprado);
         this.add(dinero);
         this.add(productos);
 
