@@ -8,19 +8,16 @@ import javax.swing.ImageIcon;
 public class PanelComprador extends JPanel {
     private ImageIcon imagenComprador;
 
-    public PanelComprador(){
+    public PanelComprador(Color color){
         super();
-        imagenComprador = new ImageIcon(getClass().getResource("CompradorTarea3.jpeg"));
+        this.setBackground(color);
+        this.setSize(100,100);
+
 
         if (imagenComprador != null) {
             JLabel label = new JLabel(imagenComprador);
             add(label);
         }
-    }
-    public PanelComprador(Color color){
-        super();
-        this.setBackground(color);
-        this.setSize(100,100);
     }
 
     @Override
