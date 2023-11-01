@@ -10,17 +10,17 @@ public class PanelComprador extends JPanel {
 
     public PanelComprador(){
         super();
-        imagenComprador = new ImageIcon(getClass().getResource("CompradorTarea3.jpeg"));
 
-        if (imagenComprador != null) {
-            JLabel label = new JLabel(imagenComprador);
-            add(label);
-        }
     }
     public PanelComprador(Color color){
         super();
         this.setBackground(color);
         this.setSize(100,100);
+        imagenComprador = new ImageIcon(getClass().getResource("Comprador.jpeg"));
+        if (imagenComprador != null) {
+            JLabel label = new JLabel(imagenComprador);
+            add(label);
+        }
     }
 
     @Override
