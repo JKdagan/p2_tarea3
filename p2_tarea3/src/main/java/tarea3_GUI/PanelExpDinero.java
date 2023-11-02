@@ -2,8 +2,6 @@ package tarea3_GUI;
 
 import javax.swing.*;
 import java.awt.*;
-
-
 public class PanelExpDinero extends JPanel {
     private JTextField textField;
 
