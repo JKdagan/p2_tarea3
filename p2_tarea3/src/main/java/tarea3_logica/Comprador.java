@@ -58,4 +58,7 @@ public class Comprador {
         }
     }
 
+    public ArrayList<Deposito<Moneda>> getDepositoMonedas() {
+        return this.monedas;
+    }
 }

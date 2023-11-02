@@ -9,16 +9,13 @@ public class Deposito<T> {
     public Deposito() {
         this.deposito = new ArrayList<T>();
     }
-
     public void addToDeposito(T t) {
         this.deposito.add(t);
     }
-
     public T getFromDeposito() {
         if (deposito.size() == 0) return null;
         return this.deposito.remove(0);
     }
-
     public ArrayList<T> getDeposito() {
         return this.deposito;
     }
