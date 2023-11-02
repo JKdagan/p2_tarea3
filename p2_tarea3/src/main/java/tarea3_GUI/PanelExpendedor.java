@@ -10,7 +10,6 @@ public class PanelExpendedor extends JPanel {
     private PanelExpProductos productos;
     private PanelExpCompra productocomprado;
 
-
     public PanelExpendedor(Color color) {
         super();
 
@@ -27,6 +26,5 @@ public class PanelExpendedor extends JPanel {
         this.setLayout(new GridLayout(3,1));
 
     }
-
 
 }

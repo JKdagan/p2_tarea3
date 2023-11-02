@@ -4,14 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-
 public class PanelComprador extends JPanel {
     private ImageIcon imagenComprador;
 
-    public PanelComprador(){
-        super();
-
-    }
     public PanelComprador(Color color){
         super();
         this.setBackground(color);
@@ -26,10 +21,6 @@ public class PanelComprador extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        }
-
-
-
-
+    }
 
 }
