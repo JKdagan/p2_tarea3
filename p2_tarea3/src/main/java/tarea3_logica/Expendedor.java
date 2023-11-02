@@ -10,16 +10,17 @@ import Productos.*;
 
 public class Expendedor {
 
-
     private Deposito<Bebida> dep_cocacola;
     private Deposito<Bebida> dep_fanta;
     private Deposito<Bebida> dep_sprite;
     private Deposito<Dulce> dep_super8;
     private Deposito<Dulce> dep_snickers;
-    private Deposito<Moneda> dep_monedasvuelto;
-    
     private Deposito<Moneda> dep_monedaspagadas;
+    private Deposito<Moneda> dep_monedasvuelto;
     private DepositoSalida salida;
+
+    private int pago;
+    private static int aux_serie = 100;
 
     private void llenarDepositos(int cantidadInicial) {
         for (int i = 0; i < cantidadInicial; i++) {
@@ -45,13 +46,12 @@ public class Expendedor {
         this.dep_super8 = new Deposito<Dulce>();
         this.dep_snickers = new Deposito<Dulce>();
         this.dep_monedasvuelto = new Deposito<Moneda>();
-        
         this.dep_monedaspagadas = new Deposito<Moneda>();
         this.salida = new DepositoSalida();
         llenarDepositos(cantidadInicial);
+        this.pago = 0;
     }
-
-    public void comprarProducto(Moneda m, ProductEnum cualProducto) throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
+    public void comprarProducto(ProductEnum cualProducto) throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
 
         if (salida.getProducto() != null) {
             throw new DepositoOcupadoException("El deposito de salida esta ocupado, retire el producto antes de la siguiente compra");
@@ -59,15 +59,9 @@ public class Expendedor {
 
         int precio_producto = cualProducto.getPrecio();
 
-        if (m == null) {
-            throw new PagoIncorrectoException("La moneda introducida es nula"); //Pendiente, meter excepciones de la tarea 2
-        }
-
         //Si la moneda es menor al precio.
-        if (m.getValor() < precio_producto) {
-            //Se da la misma moneda de vuelto, PagoInsuficienteExepcion.
-            dep_monedasvuelto.addToDeposito(m);
-            throw new PagoInsuficienteException("La moneda no alcanza para comprar el producto.");
+        if (pago < precio_producto) {
+            throw new PagoInsuficienteException("No alcanza el pago");
         }
 
         Producto producto;
@@ -80,32 +74,29 @@ public class Expendedor {
             case SNICKERS -> producto = dep_snickers.getFromDeposito();
             default -> {
                 //Numero erroneo de deposito (No existe) NoHayProductoExcepcion
-                dep_monedasvuelto.addToDeposito(m);
                 throw new NoHayProductoException("El deposito seleccionado no existe");
             }
         }
 
         if (producto == null) {
             //Si se acabaron los productos: NoHayProductioExcepcion.
-            dep_monedasvuelto.addToDeposito(m);
             throw new NoHayProductoException("No quedan del producto seleccionado o no existe en el deposito.");
         }
         else {
             //Compra exitosa.
 
-            if (m.getValor() == precio_producto) {
+            if (pago == precio_producto) {
                 //No hay vuelto
-                dep_monedaspagadas.addToDeposito(m);
                 salida.setProducto(producto);
+                pago = 0;
             }
 
             else {
                 //Si hay vuelto y se devuelve de a 100.
-                int cambio = (m.getValor() - precio_producto)/100;
-                dep_monedaspagadas.addToDeposito(m);
+                int cambio = (pago - precio_producto)/100;
 
                 for (int i = 0; i < cambio; i++) {
-                    Moneda m_aux = new Moneda100(100 + i);
+                    Moneda m_aux = new Moneda100(aux_serie + i);
                     dep_monedasvuelto.addToDeposito(m_aux);
                 }
 
@@ -113,11 +104,23 @@ public class Expendedor {
             }
         }
     }
-
     public Producto getProducto() {
         return this.salida.getProducto();
     }
-
+    public void addMonedaPago(Moneda m) {
+        this.dep_monedaspagadas.addToDeposito(m);
+        pago += m.getValor();
+    }
+    
+    public Moneda getMonedaVuelto() {
+        return this.dep_monedasvuelto.getFromDeposito();
+    }
+    public Deposito<Moneda> getDepMonedasPagadas() {
+        return this.dep_monedaspagadas;
+    }
+    public Deposito<Moneda> getDepMonedasVuelto() {
+        return this.dep_monedasvuelto;
+    }
 }
 
 

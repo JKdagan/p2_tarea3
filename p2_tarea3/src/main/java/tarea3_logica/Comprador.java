@@ -44,6 +44,10 @@ public class Comprador {
         this.productos.add(p);
     }
     public Moneda getMoneda(int index) {
+        /* monedas[0] = monedas100
+         * monedas[1] = monedas500
+         * monedas[2] = monedas1000
+         * monedas[3] = monedas1500 */
         return this.monedas.get(index).getFromDeposito();
     }
     public void addMoneda(Moneda m) {
@@ -57,7 +61,6 @@ public class Comprador {
             this.monedas.get(3).addToDeposito(m);
         }
     }
-
     public ArrayList<Deposito<Moneda>> getDepositoMonedas() {
         return this.monedas;
     }

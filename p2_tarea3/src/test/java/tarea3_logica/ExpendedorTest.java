@@ -16,51 +16,70 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpendedorTest {
 
     private Expendedor exp;
+    private Comprador c;
     private Moneda m;
-
 
     @BeforeEach
     void setUp() {
         exp = new Expendedor(5);
-        m = new Moneda1500(1);
+        c = new Comprador(5);
+
     }
 
     @Test
-    @DisplayName("Test de comprarProducto")
-    public void test_compra() throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException, DepositoOcupadoException {
-        exp.comprarProducto(m, ProductEnum.COCA_COLA);
-        Producto c1 = exp.getProducto();
-        Producto c2 = exp.getProducto();
+    @DisplayName("Test de agregar monedas")
+    public void testAgregarMonedas() {
+        m = c.getMoneda(0);
+        exp.addMonedaPago(m);
+        assertEquals(100, exp.getDepMonedasPagadas().getDeposito().get(0).getValor());
 
-        assertNotNull(c1);
-        assertNull(c2);
+        m = c.getMoneda(1);
+        exp.addMonedaPago(m);
+        assertEquals(500, exp.getDepMonedasPagadas().getDeposito().get(1).getValor());
+
+        m = c.getMoneda(2);
+        exp.addMonedaPago(m);
+        assertEquals(1000, exp.getDepMonedasPagadas().getDeposito().get(2).getValor());
+
+        m = c.getMoneda(3);
+        exp.addMonedaPago(m);
+        assertEquals(1500, exp.getDepMonedasPagadas().getDeposito().get(3).getValor());
+
     }
 
     @Test
-    @DisplayName("Test de deposito de salida")
-    public void test_depSalida() throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException, DepositoOcupadoException {
-        //Este test hace el loop donde corre el expendedor y se asegura que si el deposito de salida esta lleno
-        //entonces en vez de reiniciar todo vuelve al inicio del loop para que el comprador pueda retirar el producto
+    @DisplayName("Test de compra producto. Pago insuficiente")
+    public void testPagoInsuficiente() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
+        m = c.getMoneda(0);
+        exp.addMonedaPago(m);
 
-        int aux = 0;
-        Producto p;
-
-        while (aux < 2) {
-            try {
-
-                exp.comprarProducto(m, ProductEnum.COCA_COLA);
-                if (aux == 1) {
-                    p = exp.getProducto();
-                    System.out.println(p.toString());
-                }
-                exp.comprarProducto(m, ProductEnum.COCA_COLA);
-                break;
-            } catch (DepositoOcupadoException e) {
-                System.out.println("Deposito ocupado, retire el producto");
-                aux++;
-                continue;
-            }
+        try {
+            exp.comprarProducto(ProductEnum.COCA_COLA);
+            Producto producto = exp.getProducto();
+            producto.toString();
         }
+        catch (PagoInsuficienteException e) {
+            assertEquals("No alcanza el pago", e.getMessage());
+        }
+    }
 
+    @Test
+    @DisplayName("Test de compra producto. Pago Correcto y da vuelto")
+    public void testCompraCorrecta() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
+        m = c.getMoneda(3);
+        exp.addMonedaPago(m);
+        int vuelto = 0;
+
+        exp.comprarProducto(ProductEnum.COCA_COLA);
+        Producto producto = exp.getProducto();
+        assertEquals("Coca-Cola", producto.getNombre());
+
+        for (int i = 0; i < exp.getDepMonedasVuelto().getDeposito().size(); i++) {
+            Moneda m = exp.getDepMonedasVuelto().getDeposito().get(i);
+            System.out.println(m.getValor());
+            assertEquals(100, m.getValor());
+            vuelto += 100;
+        }
+        System.out.println("Vuelto: " + vuelto);
     }
 }
