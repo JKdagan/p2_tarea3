@@ -21,6 +21,7 @@ public class Expendedor {
 
     private int pago;
     private static int aux_serie = 100;
+    private ProductEnum cualProducto;
 
     private void llenarDepositos(int cantidadInicial) {
         for (int i = 0; i < cantidadInicial; i++) {
@@ -51,7 +52,7 @@ public class Expendedor {
         llenarDepositos(cantidadInicial);
         this.pago = 0;
     }
-    public void comprarProducto(ProductEnum cualProducto) throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
+    public void comprarProducto() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
 
         if (salida.getProducto() != null) {
             throw new DepositoOcupadoException("El deposito de salida esta ocupado, retire el producto antes de la siguiente compra");
@@ -104,14 +105,16 @@ public class Expendedor {
             }
         }
     }
-    public Producto getProducto() {
-        return this.salida.getProducto();
-    }
     public void addMonedaPago(Moneda m) {
         this.dep_monedaspagadas.addToDeposito(m);
         pago += m.getValor();
     }
-    
+    public void elegirProducto(ProductEnum cualProducto) {
+        this.cualProducto = cualProducto;
+    }
+    public Producto getProducto() {
+        return this.salida.getProducto();
+    }
     public Moneda getMonedaVuelto() {
         return this.dep_monedasvuelto.getFromDeposito();
     }

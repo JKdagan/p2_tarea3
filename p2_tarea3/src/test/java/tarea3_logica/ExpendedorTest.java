@@ -54,7 +54,8 @@ class ExpendedorTest {
         exp.addMonedaPago(m);
 
         try {
-            exp.comprarProducto(ProductEnum.COCA_COLA);
+            exp.elegirProducto(ProductEnum.COCA_COLA);
+            exp.comprarProducto();
             Producto producto = exp.getProducto();
             producto.toString();
         }
@@ -70,7 +71,8 @@ class ExpendedorTest {
         exp.addMonedaPago(m);
         int vuelto = 0;
 
-        exp.comprarProducto(ProductEnum.COCA_COLA);
+        exp.elegirProducto(ProductEnum.COCA_COLA);
+        exp.comprarProducto();
         Producto producto = exp.getProducto();
         assertEquals("Coca-Cola", producto.getNombre());
 
