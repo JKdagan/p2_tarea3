@@ -8,5 +8,6 @@ public class Main {
         Ventana ventana= new Ventana("Tarea3",800,600,true);
         PanelPrincipal panel= new PanelPrincipal(Color.white);
         ventana.add(panel);
+
     }
 }
