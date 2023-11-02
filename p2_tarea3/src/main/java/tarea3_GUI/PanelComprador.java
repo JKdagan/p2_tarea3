@@ -13,24 +13,33 @@ public class PanelComprador extends JPanel {
         this.setLayout(new BorderLayout());
         imagenComprador = new ImageIcon(getClass().getResource("/imagenes/Comprador.jpeg"));
         if (imagenComprador != null) {
+            imagenComprador.setImage(imagenComprador.getImage().getScaledInstance(200, 500, Image.SCALE_DEFAULT));
             JLabel label = new JLabel(imagenComprador);
             add(label, BorderLayout.CENTER);
         }
-        JPanel botonesPanel = new JPanel();
-        botonesPanel.setLayout(new BoxLayout(botonesPanel, BoxLayout.PAGE_AXIS));
 
-        JButton boton1 = new JButton("Agregar Moneda de 100");
-        JButton boton2 = new JButton("Agregar Moneda de 500");
-        JButton boton3 = new JButton("Agregar Moneda de 1000");
+        //botones para pagar
+        JPanel botonesSuperior = new JPanel();
+        botonesSuperior.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        botonesPanel.add(Box.createVerticalGlue());
-        botonesPanel.add(boton1);
-        botonesPanel.add(boton2);
-        botonesPanel.add(boton3);
-        botonesPanel.add(Box.createVerticalGlue());
-        //los glues es para tener espacio por arriba y por abajo
+        JButton boton1 = new JButton("Pagar en maquina con 100");
+        JButton boton2 = new JButton("Pagar en maquina con 500");
+        JButton boton3 = new JButton("Pagar en maquina con 1000");
+        botonesSuperior.add(boton1);
+        botonesSuperior.add(boton2);
+        botonesSuperior.add(boton3);
+        add(botonesSuperior, BorderLayout.NORTH);
+        //botones para darle mas dinero al comprador
+        JPanel botonesInferior = new JPanel();
+        botonesInferior.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        add(botonesPanel, BorderLayout.EAST);
+        JButton boton4 = new JButton("Añadirme una Moneda de 100");
+        JButton boton5 = new JButton("Añadirme una Moneda de 500");
+        JButton boton6 = new JButton("Añadirme una Moneda de 1000");
+        botonesInferior.add(boton4);
+        botonesInferior.add(boton5);
+        botonesInferior.add(boton6);
+        add(botonesInferior, BorderLayout.SOUTH);
     }
 
     @Override
