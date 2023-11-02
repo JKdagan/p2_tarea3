@@ -12,11 +12,15 @@ public class Ventana extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
     }//por defecto si no paso parametros
-    public Ventana(String titulo, int width, int height, boolean visible){
+    public Ventana(String titulo, int width, int height, boolean visible, Color color){
 
         super();
         this.setLayout(new BorderLayout());
         this.setTitle(titulo);
+        this.setBackground(color);
+
+        PanelPrincipal panel= new PanelPrincipal(Color.white);
+
         this.setVisible(visible);
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

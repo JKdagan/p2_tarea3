@@ -11,23 +11,22 @@ public class PanelExpendedor extends JPanel {
     private PanelExpCompra productocomprado;
 
 
-
     public PanelExpendedor(Color color) {
-            super();
+        super();
 
-            dinero= new PanelExpDinero(Color.orange);
-            productos=new PanelExpProductos(Color.magenta);
-            productocomprado= new PanelExpCompra(Color.blue);
-            this.setLayout(new GridLayout(3,1));
+        this.dinero= new PanelExpDinero(Color.orange);
+        this.productos=new PanelExpProductos(Color.magenta);
+        this.productocomprado= new PanelExpCompra(Color.blue);
 
-            this.add(dinero);
-            this.add(productos);
-            this.add(productocomprado);
+        this.add(dinero);
+        this.add(productos);
+        this.add(productocomprado);
 
-            this.setBackground(color);
+        this.setBackground(color);
+        this.setSize(100,100);
+        this.setLayout(new GridLayout(3,1));
 
-
-        }
+    }
 
 
 }
