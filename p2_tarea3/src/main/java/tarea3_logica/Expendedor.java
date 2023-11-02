@@ -19,7 +19,7 @@ public class Expendedor {
     private Deposito<Moneda> dep_monedasvuelto;
     private DepositoSalida salida;
 
-    private int pago;
+    public int pago;
     private static int aux_serie = 100;
     private ProductEnum cualProducto;
 
@@ -111,6 +111,9 @@ public class Expendedor {
     }
     public void elegirProducto(ProductEnum cualProducto) {
         this.cualProducto = cualProducto;
+    }
+    public int getPago() {
+        return this.pago;
     }
     public Producto getProducto() {
         return this.salida.getProducto();

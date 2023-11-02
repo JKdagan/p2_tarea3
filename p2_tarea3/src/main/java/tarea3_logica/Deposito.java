@@ -20,4 +20,8 @@ public class Deposito<T> {
         return this.deposito;
     }
 
+    public int cuantoHay() {
+        return this.deposito.size();
+    }
+
 }
