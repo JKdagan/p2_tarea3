@@ -7,7 +7,6 @@ public class PanelPrincipal extends JPanel {
     private PanelComprador com;
     private PanelExpendedor exp;
 
-
     public PanelPrincipal(Color color){
         exp = new PanelExpendedor(Color.green);
         com = new PanelComprador(Color.red);
