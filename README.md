@@ -9,4 +9,4 @@ Cuando todo eso funcione ok para Cocacola, copiar todo para los demas productos
 
 
 
-[![idea-tarea3-21.jpg](https://i.postimg.cc/PrYqLFPW/idea-tarea3-21.jpg)](https://postimg.cc/dLQFp6R3)
+
