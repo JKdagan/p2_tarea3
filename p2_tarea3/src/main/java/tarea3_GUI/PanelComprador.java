@@ -1,10 +1,8 @@
 package tarea3_GUI;
 
-import Monedas.Moneda;
-import Monedas.Moneda100;
-import Monedas.Moneda1000;
-import Monedas.Moneda500;
+import Monedas.*;
 import tarea3_logica.Comprador;
+import tarea3_logica.Expendedor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,22 +40,24 @@ public class PanelComprador extends JPanel {
         botonesSuperior.add(boton2);
         botonesSuperior.add(boton3);
         add(botonesSuperior, BorderLayout.NORTH);
+
         //botones para darle mas dinero al comprador
         JPanel botonesInferior = new JPanel();
         botonesInferior.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton boton4 = new JButton("Añadirme una Moneda de 100");
-        JButton boton5 = new JButton("Añadirme una Moneda de 500");
-        JButton boton6 = new JButton("Añadirme una Moneda de 1000");
-        botonesInferior.add(boton4);
-        botonesInferior.add(boton5);
-        botonesInferior.add(boton6);
+        BotonesMonedaComprador boton_add100 = new BotonesMonedaComprador("Añadirme una Moneda de 100",100);
+        BotonesMonedaComprador boton_add500 = new BotonesMonedaComprador("Añadirme una Moneda de 500",500);
+        BotonesMonedaComprador boton_add1000 = new BotonesMonedaComprador("Añadirme una Moneda de 1000",1000);
+        botonesInferior.add(boton_add100);
+        botonesInferior.add(boton_add500);
+        botonesInferior.add(boton_add1000);
         add(botonesInferior, BorderLayout.SOUTH);
 
         //mostrar dinero del comprador
         labelMonedas100 = new JLabel("Monedas de 100: " + comprador.cuantasMonedas(100));
         labelMonedas500 = new JLabel("Monedas de 500: " + comprador.cuantasMonedas(500));
         labelMonedas1000 = new JLabel("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+
         JPanel monedasPanel = new JPanel();
         monedasPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Utilizar FlowLayout alineado a la izquierda
         monedasPanel.add(labelMonedas100);
@@ -65,38 +65,60 @@ public class PanelComprador extends JPanel {
         monedasPanel.add(labelMonedas1000);
         add(monedasPanel, BorderLayout.WEST);
 
-        boton4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Moneda moneda100 = new Moneda100(comprador.cuantasMonedas(100) + 1);
-                comprador.addMoneda(moneda100);
-                labelMonedas100.setText("Monedas 100: " + comprador.cuantasMonedas(100));
-            }
-        });
-
-// ActionListener para el botón de agregar Moneda de 500
-        boton5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Moneda moneda500 = new Moneda500(comprador.cuantasMonedas(500) + 1);
-                comprador.addMoneda(moneda500);
-                // Actualiza el texto para mostrar la cantidad de Monedas de 500
-                labelMonedas500.setText("Monedas de 500: " + comprador.cuantasMonedas(500));
-            }
-        });
-
-// ActionListener para el botón de agregar Moneda de 1000
-        boton6.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Moneda moneda1000 = new Moneda1000(comprador.cuantasMonedas(1000) + 1);
-                comprador.addMoneda(moneda1000);
-                // Actualiza el texto para mostrar la cantidad de Monedas de 1000
-                labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
-            }
-        });
-
-
-
     }
 
+    private class BotonesMonedaComprador extends JButton {
+
+        public Moneda aux_moneda;
+        public int valor_moneda;
+        BotonesMonedaComprador(String texto,int valor_moneda) {
+            super(texto);
+            this.valor_moneda = valor_moneda;
+            this.addActionListener(new EscuchadorBoton());
+        }
+
+        private class EscuchadorBoton implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                switch (valor_moneda) {
+                    case 100:
+                        aux_moneda = new Moneda100(Moneda100.serie_100);
+                        comprador.addMoneda(aux_moneda);
+                        labelMonedas100.setText("Monedas de 100: " + comprador.cuantasMonedas(100));
+                        break;
+                    case 500:
+                        aux_moneda = new Moneda500(Moneda500.serie_500);
+                        comprador.addMoneda(aux_moneda);
+                        labelMonedas500.setText("Monedas de 500: " + comprador.cuantasMonedas(500));
+                        break;
+                    case 1000:
+                        aux_moneda = new Moneda1000(Moneda1000.serie_1000);
+                        comprador.addMoneda(aux_moneda);
+                        labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+                        break;
+                    default:
+                        break;
+                }
+                Moneda.incrementarSerie();
+            }
+        }
+    }
+    private class BotonesPagarExpendedor extends JButton {
+
+        public Expendedor exp;
+        public int valor_moneda;
+        public BotonesPagarExpendedor(Expendedor exp, int valor_moneda) {
+            super();
+            this.exp = exp;
+            this.valor_moneda = valor_moneda;
+            this.addActionListener(new EscuchadorBoton());
+        }
+
+        private class EscuchadorBoton implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                //TODO
+            }
+        }
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

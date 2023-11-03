@@ -20,7 +20,7 @@ public class Expendedor {
     private DepositoSalida salida;
 
     public int pago;
-    private static int aux_serie = 100;
+    public static int aux_serie = 100;
     private ProductEnum cualProducto;
 
     private void llenarDepositos(int cantidadInicial) {
@@ -97,7 +97,8 @@ public class Expendedor {
                 int cambio = (pago - precio_producto)/100;
 
                 for (int i = 0; i < cambio; i++) {
-                    Moneda m_aux = new Moneda100(aux_serie + i);
+                    Moneda m_aux = new Moneda100(Moneda100.serie_100);
+                    Moneda100.serie_100++;
                     dep_monedasvuelto.addToDeposito(m_aux);
                 }
 

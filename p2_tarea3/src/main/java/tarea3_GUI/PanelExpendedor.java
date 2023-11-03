@@ -1,5 +1,7 @@
 package tarea3_GUI;
 
+import tarea3_logica.Expendedor;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +12,9 @@ public class PanelExpendedor extends JPanel {
     private PanelExpProductos productos;
     private PanelExpCompra productocomprado;
 
-    public PanelExpendedor(Color color) {
+    private Expendedor expendedor;
+
+    public PanelExpendedor(Color color, Expendedor expendedor) {
         super();
 
         this.dinero= new PanelExpDinero(Color.orange);
