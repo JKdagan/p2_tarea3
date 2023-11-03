@@ -29,10 +29,15 @@ public class Comprador {
             this.monedas.add(new Deposito<Moneda>());
 
         for (int j = 0; j < monedas; j++) {
-            this.monedas.get(INDICE_MONEDA100).addToDeposito(new Moneda100(j));
-            this.monedas.get(INDICE_MONEDA500).addToDeposito(new Moneda500(j));
-            this.monedas.get(INDICE_MONEDA1000).addToDeposito(new Moneda1000(j));
-            this.monedas.get(INDICE_MONEDA1500).addToDeposito(new Moneda1500(j));
+            this.monedas.get(INDICE_MONEDA100).addToDeposito(new Moneda100(Moneda100.serie_100));
+            this.monedas.get(INDICE_MONEDA500).addToDeposito(new Moneda500(Moneda500.serie_500 ));
+            this.monedas.get(INDICE_MONEDA1000).addToDeposito(new Moneda1000(Moneda1000.serie_1000));
+            this.monedas.get(INDICE_MONEDA1500).addToDeposito(new Moneda1500(Moneda1500.serie_1500));
+
+            Moneda100.serie_100++;
+            Moneda500.serie_500++;
+            Moneda1000.serie_1000++;
+            Moneda1500.serie_1500++;
         }
 
         this.productos = new ArrayList<Producto>();
