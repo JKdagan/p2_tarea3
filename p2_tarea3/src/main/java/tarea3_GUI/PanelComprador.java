@@ -5,12 +5,15 @@ import Monedas.Moneda100;
 import Monedas.Moneda1000;
 import Monedas.Moneda500;
 import tarea3_logica.Comprador;
+import tarea3_logica.Expendedor;
 
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static tarea3_GUI.PanelExpDinero.labelMonedasPagadas;
 
 public class PanelComprador extends JPanel {
     private ImageIcon imagenComprador;
@@ -92,6 +95,77 @@ public class PanelComprador extends JPanel {
                 labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
             }
         });
+
+
+        //agregarle dinero a la maquina
+        Expendedor expendedor = new Expendedor(8);
+        boton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (comprador.cuantasMonedas(100) > 0) {
+                    // Resta una moneda de 100 al comprador
+                    comprador.restarMoneda(100);
+                    labelMonedas100.setText("Monedas de 100: " + comprador.cuantasMonedas(100));
+
+
+                    expendedor.addMonedaPago(new Moneda100(0));
+                    String textoActual = labelMonedasPagadas.getText();
+                    int montoIngresado = 0;
+                    try {
+                        montoIngresado = Integer.parseInt(textoActual.replace("Monto ingresado: ", ""));
+                    } catch (NumberFormatException ex) {
+                    }
+                    montoIngresado += 100;
+                    // Actualiza el label con el monto actualizado
+                    labelMonedasPagadas.setText("Monto ingresado: " + montoIngresado);
+                }
+            }
+        });
+
+        boton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (comprador.cuantasMonedas(500) > 0) {
+                    // Resta una moneda de 500 al comprador
+                    comprador.restarMoneda(500);
+                    labelMonedas500.setText("Monedas de 500: " + comprador.cuantasMonedas(500));
+
+
+                    expendedor.addMonedaPago(new Moneda500(0));
+                    String labelText = labelMonedasPagadas.getText();
+                    int montoIngresado = 0;
+                    try {
+                        montoIngresado = Integer.parseInt(labelText.replace("Monto ingresado: ", ""));
+                    } catch (NumberFormatException ex) {
+                    }
+                    montoIngresado += 500;
+                    labelMonedasPagadas.setText("Monto ingresado: " + montoIngresado);
+                }
+            }
+        });
+
+        boton3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (comprador.cuantasMonedas(1000) > 0) {
+                    // Resta una moneda de 1000 al comprador
+                    comprador.restarMoneda(1000);
+                    labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+
+
+                    expendedor.addMonedaPago(new Moneda1000(0));
+                    String labelText = labelMonedasPagadas.getText();
+                    int montoIngresado = 0;
+                    try {
+                        montoIngresado = Integer.parseInt(labelText.replace("Monto ingresado: ", ""));
+                    } catch (NumberFormatException ex) {
+                    }
+                    montoIngresado += 1000;
+                    labelMonedasPagadas.setText("Monto ingresado: " + montoIngresado);
+                }
+            }
+        });
+
+
+
+
 
 
 

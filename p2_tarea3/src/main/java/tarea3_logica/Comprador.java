@@ -65,6 +65,46 @@ public class Comprador {
             this.monedas.get(INDICE_MONEDA1500).addToDeposito(m);
         }
     }
+
+
+    public void restarMoneda(int valor) {
+        switch (valor) {
+            case 100:
+                if (cuantasMonedas(100) > 0) {
+                    // Resta una moneda de 100 al comprador
+                    monedas.get(INDICE_MONEDA100).getFromDeposito();
+                }
+                break;
+            case 500:
+                if (cuantasMonedas(500) > 0) {
+                    // Resta una moneda de 500 al comprador
+                    monedas.get(INDICE_MONEDA500).getFromDeposito();
+                }
+                break;
+            case 1000:
+                if (cuantasMonedas(1000) > 0) {
+                    // Resta una moneda de 1000 al comprador
+                    monedas.get(INDICE_MONEDA1000).getFromDeposito();
+                }
+                break;
+            case 1500:
+                if (cuantasMonedas(1500) > 0) {
+                    // Resta una moneda de 1500 al comprador
+                    monedas.get(INDICE_MONEDA1500).getFromDeposito();
+                }
+                break;
+            default:
+                // Valor de moneda no válido
+                // Puedes manejar este caso de acuerdo a tus requerimientos
+                break;
+        }
+    }
+
+
+
+
+
+
     public ArrayList<Deposito<Moneda>> getDepositoMonedas() {
         return this.monedas;
     }
