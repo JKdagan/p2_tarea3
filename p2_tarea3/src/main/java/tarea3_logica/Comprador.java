@@ -24,7 +24,7 @@ public class Comprador {
          * monedas[2] = monedas1000
          * monedas[3] = monedas1500 */
 
-        this.monedas = new ArrayList<Deposito<Moneda>>(4);
+        this.monedas = new ArrayList<Deposito<Moneda>>(5);
         for (int i = 0; i < 4; i++)
             this.monedas.add(new Deposito<Moneda>());
 
