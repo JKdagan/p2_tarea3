@@ -1,5 +1,7 @@
 package tarea3_GUI;
 
+import tarea3_logica.Comprador;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,8 @@ public class PanelPrincipal extends JPanel {
     public PanelPrincipal(Color color){
         super();
         exp = new PanelExpendedor(Color.green);
-        com = new PanelComprador(Color.white);
+        Comprador comprador= new Comprador(5);
+        com = new PanelComprador(Color.white, comprador);
         this.setBackground(color);
         this.add(exp);
         this.add(com);
