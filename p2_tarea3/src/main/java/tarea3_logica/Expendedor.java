@@ -10,11 +10,11 @@ import Productos.*;
 
 public class Expendedor {
 
-    private Deposito<Bebida> dep_cocacola;
-    private Deposito<Bebida> dep_fanta;
-    private Deposito<Bebida> dep_sprite;
-    private Deposito<Dulce> dep_super8;
-    private Deposito<Dulce> dep_snickers;
+    public Deposito<Bebida> dep_cocacola;
+    public Deposito<Bebida> dep_fanta;
+    public Deposito<Bebida> dep_sprite;
+    public Deposito<Dulce> dep_super8;
+    public Deposito<Dulce> dep_snickers;
     private Deposito<Moneda> dep_monedaspagadas;
     private Deposito<Moneda> dep_monedasvuelto;
     private DepositoSalida salida;
