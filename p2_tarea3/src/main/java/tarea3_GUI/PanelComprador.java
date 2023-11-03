@@ -98,7 +98,7 @@ public class PanelComprador extends JPanel {
 
 
         //agregarle dinero a la maquina
-        Expendedor expendedor = new Expendedor(8);
+        Expendedor expendedor = new Expendedor(10);
         boton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (comprador.cuantasMonedas(100) > 0) {
