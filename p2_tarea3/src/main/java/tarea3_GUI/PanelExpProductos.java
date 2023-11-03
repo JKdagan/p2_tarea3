@@ -1,8 +1,20 @@
 package tarea3_GUI;
 
+import Excepciones.DepositoOcupadoException;
+import Excepciones.NoHayProductoException;
+import Excepciones.PagoIncorrectoException;
+import Excepciones.PagoInsuficienteException;
+import Productos.ProductEnum;
+import tarea3_logica.Comprador;
+import tarea3_logica.Expendedor;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+
+import static tarea3_GUI.PanelExpDinero.labelMonedasPagadas;
 
 public class PanelExpProductos extends JPanel {
     private ImageIcon imagenCoca;
@@ -10,9 +22,13 @@ public class PanelExpProductos extends JPanel {
     private ImageIcon imagenFanta;
     private ImageIcon imagenSuper8;
     private ImageIcon imagenSnickers;
+    private Expendedor expendedor;
+    private Comprador comprador;
 
 
     public PanelExpProductos(Color color) {
+        this.expendedor = expendedor;
+        this.comprador = comprador;
         this.setBackground(color);
         //botones
         JPanel botonesPanel = new JPanel();
@@ -109,8 +125,34 @@ public class PanelExpProductos extends JPanel {
         add(frasesPanel, BorderLayout.CENTER);
 
 
+        boton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Realizar la compra de Coca-Cola
+                ProductEnum producto = ProductEnum.COCA_COLA;
+                try {
+                    expendedor.elegirProducto(producto);
 
 
+
+                    //falta agregar logica
+                    expendedor.comprarProducto();
+
+
+                    //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
+                    PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/imagenes/CocaCola.jpeg")));
+
+                } catch (NoHayProductoException ex) {
+                    // "NoHayProductoException"
+                } catch (PagoIncorrectoException ex) {
+                    // "PagoIncorrectoException"
+                } catch (PagoInsuficienteException ex) {
+                    // "PagoInsuficienteException"
+                } catch (DepositoOcupadoException ex) {
+                    //"DepositoOcupadoException"
+                }// EN LAS EXECPCIONES TENEMOS QUE PONER LAS VENTANAS EMERGENTES
+            }
+        });
 
 
 
