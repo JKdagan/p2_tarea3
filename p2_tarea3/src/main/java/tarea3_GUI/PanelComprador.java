@@ -2,6 +2,7 @@ package tarea3_GUI;
 
 import Monedas.*;
 import tarea3_logica.Comprador;
+import tarea3_logica.Expendedor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,6 +40,7 @@ public class PanelComprador extends JPanel {
         botonesSuperior.add(boton2);
         botonesSuperior.add(boton3);
         add(botonesSuperior, BorderLayout.NORTH);
+
         //botones para darle mas dinero al comprador
         JPanel botonesInferior = new JPanel();
         botonesInferior.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -55,6 +57,7 @@ public class PanelComprador extends JPanel {
         labelMonedas100 = new JLabel("Monedas de 100: " + comprador.cuantasMonedas(100));
         labelMonedas500 = new JLabel("Monedas de 500: " + comprador.cuantasMonedas(500));
         labelMonedas1000 = new JLabel("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+
         JPanel monedasPanel = new JPanel();
         monedasPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Utilizar FlowLayout alineado a la izquierda
         monedasPanel.add(labelMonedas100);
@@ -67,16 +70,16 @@ public class PanelComprador extends JPanel {
     private class BotonesMonedaComprador extends JButton {
 
         public Moneda aux_moneda;
-        public int valorMoneda;
-        BotonesMonedaComprador(String texto,int valorMoneda) {
+        public int valor_moneda;
+        BotonesMonedaComprador(String texto,int valor_moneda) {
             super(texto);
-            this.valorMoneda = valorMoneda;
+            this.valor_moneda = valor_moneda;
             this.addActionListener(new EscuchadorBoton());
         }
 
         private class EscuchadorBoton implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                switch (valorMoneda) {
+                switch (valor_moneda) {
                     case 100:
                         aux_moneda = new Moneda100(Moneda100.serie_100);
                         comprador.addMoneda(aux_moneda);
@@ -96,6 +99,23 @@ public class PanelComprador extends JPanel {
                         break;
                 }
                 Moneda.incrementarSerie();
+            }
+        }
+    }
+    private class BotonesPagarExpendedor extends JButton {
+
+        public Expendedor exp;
+        public int valor_moneda;
+        public BotonesPagarExpendedor(Expendedor exp, int valor_moneda) {
+            super();
+            this.exp = exp;
+            this.valor_moneda = valor_moneda;
+            this.addActionListener(new EscuchadorBoton());
+        }
+
+        private class EscuchadorBoton implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                //TODO
             }
         }
     }
