@@ -1,12 +1,8 @@
 package tarea3_GUI;
 
-import Excepciones.DepositoOcupadoException;
-import Excepciones.NoHayProductoException;
-import Excepciones.PagoIncorrectoException;
-import Excepciones.PagoInsuficienteException;
-import Productos.ProductEnum;
-import tarea3_logica.Comprador;
-import tarea3_logica.Expendedor;
+import Excepciones.*;
+import Productos.*;
+import tarea3_logica.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,117 +11,53 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 public class PanelExpProductos extends JPanel {
+
     private ImageIcon imagenCoca;
     private ImageIcon imagenSprite;
     private ImageIcon imagenFanta;
     private ImageIcon imagenSuper8;
     private ImageIcon imagenSnickers;
+    private JPanel imagenesPanel;
+    private JLabel labelCoca;
+    private JLabel labelSprite;
+    private JLabel labelFanta;
+    private JLabel labelSuper8;
+    private JLabel labelSnickers;
+
+    private JPanel botonesPanel;
+    private JPanel botones_centradosPanel;
+    private JPanel frasesPanel;
+    private BotonesProductos boton_CocaCola;
+    private BotonesProductos boton_Sprite;
+    private BotonesProductos boton_Fanta;
+    private BotonesProductos boton_Super8;
+    private BotonesProductos boton_Snickers;
+    private JLabel fraseCocaCola;
+    private JLabel fraseSprite;
+    private JLabel fraseFanta;
+    private JLabel fraseSuper8;
+    private JLabel fraseSnickers;
+
     private Expendedor expendedor;
-    private Comprador comprador;
-
-
 
     public PanelExpProductos(Color color, Expendedor expendedor) {
-        this.expendedor = this.expendedor;
-        this.comprador = comprador;
+        this.expendedor = expendedor;
         this.setBackground(color);
+        this.setLayout(new BorderLayout());
+
         //botones
-        JPanel botonesPanel = new JPanel();
-        setLayout(new BorderLayout());
+        this.inicializarBotonesProductos();
 
-        JButton boton1 = new JButton("1. CocaCola");
-        JButton boton2 = new JButton("2. Sprite");
-        JButton boton3 = new JButton("3. Fanta");
-        JButton boton4 = new JButton("4. Super8");
-        JButton boton5 = new JButton("5. Snickers");
+        //cargar imagenes
+        this.inicializarImagenesProductos();
 
-        botonesPanel.add(boton1);
-        botonesPanel.add(boton2);
-        botonesPanel.add(boton3);
-        botonesPanel.add(boton4);
-        botonesPanel.add(boton5);
-
-        botonesPanel.setLayout(new BoxLayout(botonesPanel, BoxLayout.LINE_AXIS));//alinear horizontal
-        botonesPanel.setAlignmentX(Component.CENTER_ALIGNMENT);//centrarlos
-        JPanel botonesCentradosPanel = new JPanel();
-        botonesCentradosPanel.setLayout(new BoxLayout(botonesCentradosPanel, BoxLayout.LINE_AXIS));
-        botonesCentradosPanel.add(Box.createHorizontalGlue());
-        botonesCentradosPanel.add(botonesPanel);
-        botonesCentradosPanel.add(Box.createHorizontalGlue());
-        add(botonesCentradosPanel, BorderLayout.NORTH);//ponerlo en la parte superior
-
-
-        //imagenes
-        imagenCoca = new ImageIcon(getClass().getResource("/imagenes/CocaCola.jpeg"));
-        imagenSprite = new ImageIcon(getClass().getResource("/imagenes/Sprite.jpeg"));
-        imagenFanta = new ImageIcon(getClass().getResource("/imagenes/Fanta.jpeg"));
-        imagenSuper8 = new ImageIcon(getClass().getResource("/imagenes/Super8.jpeg"));
-        imagenSnickers = new ImageIcon(getClass().getResource("/imagenes/Snickers.jpeg"));
-
-        imagenCoca.setImage(imagenCoca.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
-        imagenSprite.setImage(imagenSprite.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
-        imagenFanta.setImage(imagenFanta.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
-        imagenSuper8.setImage(imagenSuper8.getImage().getScaledInstance(130, 80, Image.SCALE_DEFAULT));
-        imagenSnickers.setImage(imagenSnickers.getImage().getScaledInstance(130, 80, Image.SCALE_DEFAULT));
-
-        JLabel labelCoca = new JLabel(imagenCoca);
-        JLabel labelSprite = new JLabel(imagenSprite);
-        JLabel labelFanta = new JLabel(imagenFanta);
-        JLabel labelSuper8 = new JLabel(imagenSuper8);
-        JLabel labelSnickers = new JLabel(imagenSnickers);
-
-        JPanel imagenesPanel = new JPanel();
-        imagenesPanel.setLayout(new BoxLayout(imagenesPanel, BoxLayout.LINE_AXIS));
-        imagenesPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-        imagenesPanel.add(labelCoca);
-        imagenesPanel.add(labelCoca);
-        imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
-        imagenesPanel.add(labelSprite);
-        imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
-        imagenesPanel.add(labelFanta);
-        imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
-        imagenesPanel.add(labelSuper8);
-        imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
-        imagenesPanel.add(labelSnickers);
-
-        add(imagenesPanel, BorderLayout.SOUTH);
-
-
+        //poner imagenes
+        this.ajustarImagenesProductos();
 
         //precios y cantidad
-        JLabel Cocacolas = new JLabel("<html>Precio: $1200<br>Disponibles:" + expendedor.dep_cocacola.cuantoHay() + "</html>");
-        JLabel fraseSprite = new JLabel("<html>Precio:$1200<br>Disponibles:"+expendedor.dep_sprite.cuantoHay() + "</html>");
-        JLabel fraseFanta = new JLabel("<html>Precio:$1000<br>Disponibles:"+ expendedor.dep_fanta.cuantoHay() + "</html>");
-        JLabel fraseSuper8 = new JLabel("<html>Precio:$300<br>Disponibles:"+ expendedor.dep_super8.cuantoHay() + "</html>");
-        JLabel fraseSnickers = new JLabel("<html>Precio:$400<br>Disponibles:"+ expendedor.dep_snickers.cuantoHay() + "</html>");
+        this.mostrarPreciosyCantidad();
 
-
-        JPanel frasesPanel = new JPanel();
-        frasesPanel.setLayout(new BoxLayout(frasesPanel, BoxLayout.LINE_AXIS));
-
-        Cocacolas.setHorizontalAlignment(SwingConstants.CENTER);
-        fraseSprite.setHorizontalAlignment(SwingConstants.CENTER);
-        fraseFanta.setHorizontalAlignment(SwingConstants.CENTER);
-        fraseSuper8.setHorizontalAlignment(SwingConstants.CENTER);
-        fraseSnickers.setHorizontalAlignment(SwingConstants.CENTER);
-
-
-        frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
-        frasesPanel.add(Cocacolas);
-        frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
-        frasesPanel.add(fraseSprite);
-        frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
-        frasesPanel.add(fraseFanta);
-        frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
-        frasesPanel.add(fraseSuper8);
-        frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
-        frasesPanel.add(fraseSnickers);
-
-        add(frasesPanel, BorderLayout.CENTER);
-
-
-
-        boton1.addActionListener(new ActionListener() {
+        boton_CocaCola.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Realizar la compra de Coca-Cola
@@ -154,10 +86,91 @@ public class PanelExpProductos extends JPanel {
             }
         });
 
-
-
-
     }
 
+    private void inicializarImagenesProductos() {
+        imagenCoca = new ImageIcon(getClass().getResource("/imagenes/CocaCola.jpeg"));
+        imagenSprite = new ImageIcon(getClass().getResource("/imagenes/Sprite.jpeg"));
+        imagenFanta = new ImageIcon(getClass().getResource("/imagenes/Fanta.jpeg"));
+        imagenSuper8 = new ImageIcon(getClass().getResource("/imagenes/Super8.jpeg"));
+        imagenSnickers = new ImageIcon(getClass().getResource("/imagenes/Snickers.jpeg"));
+        imagenCoca.setImage(imagenCoca.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
+        imagenSprite.setImage(imagenSprite.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
+        imagenFanta.setImage(imagenFanta.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
+        imagenSuper8.setImage(imagenSuper8.getImage().getScaledInstance(130, 80, Image.SCALE_DEFAULT));
+        imagenSnickers.setImage(imagenSnickers.getImage().getScaledInstance(130, 80, Image.SCALE_DEFAULT));
+    }
+    private void ajustarImagenesProductos() {
+        this.labelCoca = new JLabel(imagenCoca);
+        this.labelSprite = new JLabel(imagenSprite);
+        this.labelFanta = new JLabel(imagenFanta);
+        this.labelSuper8 = new JLabel(imagenSuper8);
+        this.labelSnickers = new JLabel(imagenSnickers);
+        this.imagenesPanel = new JPanel();
+        this.imagenesPanel.setLayout(new BoxLayout(imagenesPanel, BoxLayout.LINE_AXIS));
+        this.imagenesPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+        this.imagenesPanel.add(labelCoca);
+        this.imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
+        this.imagenesPanel.add(labelSprite);
+        this.imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
+        this.imagenesPanel.add(labelFanta);
+        this.imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
+        this.imagenesPanel.add(labelSuper8);
+        this.imagenesPanel.add(Box.createRigidArea(new Dimension(70, 0)));
+        this.imagenesPanel.add(labelSnickers);
+        add(imagenesPanel, BorderLayout.SOUTH);
+    }
+    private void inicializarBotonesProductos() {
+        this.boton_CocaCola = new BotonesProductos("1. CocaCola");
+        this.boton_Sprite = new BotonesProductos("2. Sprite");
+        this.boton_Fanta = new BotonesProductos("3. Fanta");
+        this.boton_Super8 = new BotonesProductos("4. Super8");
+        this.boton_Snickers = new BotonesProductos("5. Snickers");
+        this.botonesPanel = new JPanel();
+        this.botonesPanel.add(boton_CocaCola);
+        this.botonesPanel.add(boton_Sprite);
+        this.botonesPanel.add(boton_Fanta);
+        this.botonesPanel.add(boton_Super8);
+        this.botonesPanel.add(boton_Snickers);
+        this.botonesPanel.setLayout(new BoxLayout(botonesPanel, BoxLayout.LINE_AXIS));//alinear horizontal
+        this.botonesPanel.setAlignmentX(Component.CENTER_ALIGNMENT);//centrarlos
+        this.botones_centradosPanel = new JPanel();
+        this.botones_centradosPanel.setLayout(new BoxLayout(botones_centradosPanel, BoxLayout.LINE_AXIS));
+        this.botones_centradosPanel.add(Box.createHorizontalGlue());
+        this.botones_centradosPanel.add(botonesPanel);
+        this.botones_centradosPanel.add(Box.createHorizontalGlue());
+        add(botones_centradosPanel, BorderLayout.NORTH);//ponerlo en la parte superior
+    }
 
+    private void mostrarPreciosyCantidad() {
+        this.fraseCocaCola = new JLabel("<html>Precio: $1200<br>Disponibles:" + expendedor.dep_cocacola.cuantoHay() + "</html>");
+        this.fraseSprite = new JLabel("<html>Precio:$1200<br>Disponibles:"+ expendedor.dep_sprite.cuantoHay() + "</html>");
+        this.fraseFanta = new JLabel("<html>Precio:$1000<br>Disponibles:"+ expendedor.dep_fanta.cuantoHay() + "</html>");
+        this.fraseSuper8 = new JLabel("<html>Precio:$300<br>Disponibles:"+ expendedor.dep_super8.cuantoHay() + "</html>");
+        this.fraseSnickers = new JLabel("<html>Precio:$400<br>Disponibles:"+ expendedor.dep_snickers.cuantoHay() + "</html>");
+        this.frasesPanel = new JPanel();
+        this.frasesPanel.setLayout(new BoxLayout(frasesPanel, BoxLayout.LINE_AXIS));
+        this.fraseCocaCola.setHorizontalAlignment(SwingConstants.CENTER);
+        this.fraseSprite.setHorizontalAlignment(SwingConstants.CENTER);
+        this.fraseFanta.setHorizontalAlignment(SwingConstants.CENTER);
+        this.fraseSuper8.setHorizontalAlignment(SwingConstants.CENTER);
+        this.fraseSnickers.setHorizontalAlignment(SwingConstants.CENTER);
+        this.frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+        this.frasesPanel.add(fraseCocaCola);
+        this.frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+        this.frasesPanel.add(fraseSprite);
+        this.frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+        this.frasesPanel.add(fraseFanta);
+        this.frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+        this.frasesPanel.add(fraseSuper8);
+        this.frasesPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+        this.frasesPanel.add(fraseSnickers);
+        add(frasesPanel, BorderLayout.CENTER);
+    }
+    private class BotonesProductos extends JButton {
+        public BotonesProductos(String nombre) {
+            super(nombre);
+        }
+
+    }
 }
