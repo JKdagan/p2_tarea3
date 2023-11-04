@@ -1,8 +1,6 @@
 Cosas por hacer ahora:
 *en rama jTorres: 
 
--terminar de hacer que funcione el boton para comprar la cocacola-->compra exitosa: que se vea imagen en rectangulo de PanelExpCompra
-
 -que se visualice en PanelExpProductos con un string que la cantidad de cocacolas bajó
 
 -hacer que el vuelto se vea en rectangulo de PanelExpDinero,una moneda de 100 con un string cantidad que indique cuantas monedas de 100 son (supongo q es facil como solo se trabaja con monedas100 en vuelto)
