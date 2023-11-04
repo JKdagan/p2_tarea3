@@ -89,7 +89,6 @@ public class Expendedor {
             if (pago == precio_producto) {
                 //No hay vuelto
                 salida.setProducto(producto);
-                pago = 0;
             }
 
             else {
@@ -101,7 +100,7 @@ public class Expendedor {
                     Moneda100.serie_100++;
                     dep_monedasvuelto.addToDeposito(m_aux);
                 }
-
+                pago -= precio_producto;
                 salida.setProducto(producto);
             }
         }

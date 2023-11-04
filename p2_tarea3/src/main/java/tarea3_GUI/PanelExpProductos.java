@@ -2,7 +2,6 @@ package tarea3_GUI;
 
 import Excepciones.*;
 import Productos.*;
-import tarea3_logica.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,10 +37,7 @@ public class PanelExpProductos extends JPanel {
     private JLabel fraseSuper8;
     private JLabel fraseSnickers;
 
-    private Expendedor expendedor;
-
-    public PanelExpProductos(Color color, Expendedor expendedor) {
-        this.expendedor = expendedor;
+    public PanelExpProductos(Color color) {
         this.setBackground(color);
         this.setLayout(new BorderLayout());
 
@@ -57,43 +53,14 @@ public class PanelExpProductos extends JPanel {
         //precios y cantidad
         this.mostrarPreciosyCantidad();
 
-        boton_CocaCola.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Realizar la compra de Coca-Cola
-                ProductEnum producto = ProductEnum.COCA_COLA;
-                try {
-                    PanelExpProductos.this.expendedor.elegirProducto(producto);
-
-
-
-                    //falta agregar logica
-                    PanelExpProductos.this.expendedor.comprarProducto();
-
-
-                    //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
-                    PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/imagenes/CocaCola.jpeg")));
-
-                } catch (NoHayProductoException ex) {
-                    // "NoHayProductoException"
-                } catch (PagoIncorrectoException ex) {
-                    // "PagoIncorrectoException"
-                } catch (PagoInsuficienteException ex) {
-                    // "PagoInsuficienteException"
-                } catch (DepositoOcupadoException ex) {
-                    //"DepositoOcupadoException"
-                }// EN LAS EXECPCIONES TENEMOS QUE PONER LAS VENTANAS EMERGENTES
-            }
-        });
-
     }
 
     private void inicializarImagenesProductos() {
-        imagenCoca = new ImageIcon(getClass().getResource("/imagenes/CocaCola.jpeg"));
-        imagenSprite = new ImageIcon(getClass().getResource("/imagenes/Sprite.jpeg"));
-        imagenFanta = new ImageIcon(getClass().getResource("/imagenes/Fanta.jpeg"));
-        imagenSuper8 = new ImageIcon(getClass().getResource("/imagenes/Super8.jpeg"));
-        imagenSnickers = new ImageIcon(getClass().getResource("/imagenes/Snickers.jpeg"));
+        imagenCoca = new ImageIcon(getClass().getResource("/CocaCola.jpeg"));
+        imagenSprite = new ImageIcon(getClass().getResource("/Sprite.jpeg"));
+        imagenFanta = new ImageIcon(getClass().getResource("/Fanta.jpeg"));
+        imagenSuper8 = new ImageIcon(getClass().getResource("/Super8.jpeg"));
+        imagenSnickers = new ImageIcon(getClass().getResource("/Snickers.jpeg"));
         imagenCoca.setImage(imagenCoca.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
         imagenSprite.setImage(imagenSprite.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
         imagenFanta.setImage(imagenFanta.getImage().getScaledInstance(60, 110, Image.SCALE_DEFAULT));
@@ -121,11 +88,11 @@ public class PanelExpProductos extends JPanel {
         add(imagenesPanel, BorderLayout.SOUTH);
     }
     private void inicializarBotonesProductos() {
-        this.boton_CocaCola = new BotonesProductos("1. CocaCola");
-        this.boton_Sprite = new BotonesProductos("2. Sprite");
-        this.boton_Fanta = new BotonesProductos("3. Fanta");
-        this.boton_Super8 = new BotonesProductos("4. Super8");
-        this.boton_Snickers = new BotonesProductos("5. Snickers");
+        this.boton_CocaCola = new BotonesProductos("1. CocaCola", ProductEnum.COCA_COLA);
+        this.boton_Sprite = new BotonesProductos("2. Sprite", ProductEnum.SPRITE);
+        this.boton_Fanta = new BotonesProductos("3. Fanta", ProductEnum.FANTA);
+        this.boton_Super8 = new BotonesProductos("4. Super8", ProductEnum.SUPER8);
+        this.boton_Snickers = new BotonesProductos("5. Snickers", ProductEnum.SNICKERS);
         this.botonesPanel = new JPanel();
         this.botonesPanel.add(boton_CocaCola);
         this.botonesPanel.add(boton_Sprite);
@@ -141,13 +108,12 @@ public class PanelExpProductos extends JPanel {
         this.botones_centradosPanel.add(Box.createHorizontalGlue());
         add(botones_centradosPanel, BorderLayout.NORTH);//ponerlo en la parte superior
     }
-
     private void mostrarPreciosyCantidad() {
-        this.fraseCocaCola = new JLabel("<html>Precio: $1200<br>Disponibles:" + expendedor.dep_cocacola.cuantoHay() + "</html>");
-        this.fraseSprite = new JLabel("<html>Precio:$1200<br>Disponibles:"+ expendedor.dep_sprite.cuantoHay() + "</html>");
-        this.fraseFanta = new JLabel("<html>Precio:$1000<br>Disponibles:"+ expendedor.dep_fanta.cuantoHay() + "</html>");
-        this.fraseSuper8 = new JLabel("<html>Precio:$300<br>Disponibles:"+ expendedor.dep_super8.cuantoHay() + "</html>");
-        this.fraseSnickers = new JLabel("<html>Precio:$400<br>Disponibles:"+ expendedor.dep_snickers.cuantoHay() + "</html>");
+        this.fraseCocaCola = new JLabel("<html>Precio: $1200<br>Disponibles:" + PanelPrincipal.expendedor.dep_cocacola.cuantoHay() + "</html>");
+        this.fraseSprite = new JLabel("<html>Precio:$1200<br>Disponibles:"+ PanelPrincipal.expendedor.dep_sprite.cuantoHay() + "</html>");
+        this.fraseFanta = new JLabel("<html>Precio:$1000<br>Disponibles:"+ PanelPrincipal.expendedor.dep_fanta.cuantoHay() + "</html>");
+        this.fraseSuper8 = new JLabel("<html>Precio:$300<br>Disponibles:"+ PanelPrincipal.expendedor.dep_super8.cuantoHay() + "</html>");
+        this.fraseSnickers = new JLabel("<html>Precio:$400<br>Disponibles:"+ PanelPrincipal.expendedor.dep_snickers.cuantoHay() + "</html>");
         this.frasesPanel = new JPanel();
         this.frasesPanel.setLayout(new BoxLayout(frasesPanel, BoxLayout.LINE_AXIS));
         this.fraseCocaCola.setHorizontalAlignment(SwingConstants.CENTER);
@@ -168,9 +134,40 @@ public class PanelExpProductos extends JPanel {
         add(frasesPanel, BorderLayout.CENTER);
     }
     private class BotonesProductos extends JButton {
-        public BotonesProductos(String nombre) {
-            super(nombre);
+
+    ProductEnum producto;
+    public BotonesProductos(String nombre, ProductEnum cualProducto) {
+        super(nombre);
+        this.producto = cualProducto;
+        this.addActionListener(new EscuchadorBoton());
+    }
+    private class EscuchadorBoton implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                PanelPrincipal.expendedor.elegirProducto(producto);
+                PanelPrincipal.expendedor.comprarProducto();
+                PanelExpDinero.updateLabelMonedasPagadas();
+                //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
+
+                switch(producto){
+                    case COCA_COLA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/CocaCola.jpeg")));
+                    case FANTA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Fanta.jpeg")));
+                    case SPRITE -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Sprite.jpeg")));
+                    case SUPER8 -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Super8.jpeg")));
+                    case SNICKERS -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Snickers.jpeg")));
+                }
+            }
+            catch (NoHayProductoException ex) {
+                // "NoHayProductoException"
+            } catch (PagoIncorrectoException ex) {
+                // "PagoIncorrectoException"
+            } catch (PagoInsuficienteException ex) {
+                // "PagoInsuficienteException"
+            } catch (DepositoOcupadoException ex) {
+                //"DepositoOcupadoException"
+            }// EN LAS EXECPCIONES TENEMOS QUE PONER LAS VENTANAS EMERGENTES
         }
+    }
 
     }
 }

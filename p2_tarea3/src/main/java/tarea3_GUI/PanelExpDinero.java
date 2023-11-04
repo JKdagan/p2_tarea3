@@ -11,6 +11,10 @@ public class PanelExpDinero extends JPanel {
         labelMonedasPagadas = new JLabel("Monto ingresado: ");
         add(labelMonedasPagadas);
     }
+
+    public static void updateLabelMonedasPagadas() {
+        labelMonedasPagadas.setText("Monto ingresado: " + PanelPrincipal.expendedor.getPago());
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
