@@ -5,11 +5,17 @@ import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
 public class PanelExpCompra extends JPanel {
+    private static JLabel labelImagen;
 
     public PanelExpCompra(Color color) {
         super();
         this.setBackground(color);
+        labelImagen = new JLabel();
+        add(labelImagen);
 
+    }
+    public static void actualizarImagen(ImageIcon imagen) {
+        labelImagen.setIcon(imagen);
     }
     @Override
     protected void paintComponent(Graphics g) {

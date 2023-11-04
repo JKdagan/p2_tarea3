@@ -17,7 +17,7 @@ public class PanelPrincipal extends JPanel {
         comprador = new Comprador(5);
         expendedor = new Expendedor(5);
         exp = new PanelExpendedor(Color.green, expendedor);
-        com = new PanelComprador(Color.white, comprador);
+        com = new PanelComprador(Color.white, comprador, expendedor, PanelExpDinero.labelMonedasPagadas);
         this.setBackground(color);
         this.add(exp);
         this.add(com);

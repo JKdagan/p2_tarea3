@@ -1,8 +1,7 @@
 package tarea3_GUI;
 
 import Monedas.*;
-import tarea3_logica.Comprador;
-import tarea3_logica.Expendedor;
+import tarea3_logica.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,14 +11,26 @@ import java.awt.event.ActionListener;
 
 public class PanelComprador extends JPanel {
     private ImageIcon imagenComprador;
-    private Comprador comprador;
     private JLabel labelMonedas100;
     private JLabel labelMonedas500;
     private JLabel labelMonedas1000;
+    private JLabel labelMonedasPagadas;
+    private BotonesMonedaComprador boton_add100;
+    private BotonesMonedaComprador boton_add500;
+    private BotonesMonedaComprador boton_add1000;
+    private BotonesPagoExpendedor boton_pagar100;
+    private BotonesPagoExpendedor boton_pagar500;
+    private BotonesPagoExpendedor boton_pagar1000;
 
-    public PanelComprador(Color color, Comprador comprador){
+    private Expendedor expendedor;
+    private Comprador comprador;
+
+    public PanelComprador(Color color, Comprador comprador, Expendedor expendedor, JLabel labelMonedasPagadas) {
         super();
         this.comprador = comprador;
+        this.expendedor = expendedor;
+        this.labelMonedasPagadas = labelMonedasPagadas;
+
         this.setBackground(color);
         this.setLayout(new BorderLayout());
         imagenComprador = new ImageIcon(getClass().getResource("/imagenes/Comprador.jpeg"));
@@ -33,21 +44,20 @@ public class PanelComprador extends JPanel {
         JPanel botonesSuperior = new JPanel();
         botonesSuperior.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton boton1 = new JButton("Pagar en maquina con 100");
-        JButton boton2 = new JButton("Pagar en maquina con 500");
-        JButton boton3 = new JButton("Pagar en maquina con 1000");
-        botonesSuperior.add(boton1);
-        botonesSuperior.add(boton2);
-        botonesSuperior.add(boton3);
+        boton_pagar100 = new BotonesPagoExpendedor("Pagar en maquina con 100", 100);
+        boton_pagar500 = new BotonesPagoExpendedor("Pagar en maquina con 500", 500);
+        boton_pagar1000 = new BotonesPagoExpendedor("Pagar en maquina con 1000", 1000);
+        botonesSuperior.add(boton_pagar100);
+        botonesSuperior.add(boton_pagar500);
+        botonesSuperior.add(boton_pagar1000);
         add(botonesSuperior, BorderLayout.NORTH);
 
         //botones para darle mas dinero al comprador
         JPanel botonesInferior = new JPanel();
         botonesInferior.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-        BotonesMonedaComprador boton_add100 = new BotonesMonedaComprador("Añadirme una Moneda de 100",100);
-        BotonesMonedaComprador boton_add500 = new BotonesMonedaComprador("Añadirme una Moneda de 500",500);
-        BotonesMonedaComprador boton_add1000 = new BotonesMonedaComprador("Añadirme una Moneda de 1000",1000);
+        boton_add100 = new BotonesMonedaComprador("Añadirme una Moneda de 100",100);
+        boton_add500 = new BotonesMonedaComprador("Añadirme una Moneda de 500",500);
+        boton_add1000 = new BotonesMonedaComprador("Añadirme una Moneda de 1000",1000);
         botonesInferior.add(boton_add100);
         botonesInferior.add(boton_add500);
         botonesInferior.add(boton_add1000);
@@ -67,11 +77,16 @@ public class PanelComprador extends JPanel {
 
     }
 
-    private class BotonesMonedaComprador extends JButton {
+    public void updateLabelMonedasText() {
+        labelMonedas100.setText("Monedas de 100: " + comprador.cuantasMonedas(100));
+        labelMonedas500.setText("Monedas de 500: " + comprador.cuantasMonedas(500));
+        labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+    }
 
+    private class BotonesMonedaComprador extends JButton {
         public Moneda aux_moneda;
         public int valor_moneda;
-        BotonesMonedaComprador(String texto,int valor_moneda) {
+        BotonesMonedaComprador(String texto, int valor_moneda) {
             super(texto);
             this.valor_moneda = valor_moneda;
             this.addActionListener(new EscuchadorBoton());
@@ -102,22 +117,54 @@ public class PanelComprador extends JPanel {
             }
         }
     }
-    private class BotonesPagarExpendedor extends JButton {
+    private class BotonesPagoExpendedor extends JButton {
 
-        public Expendedor exp;
         public int valor_moneda;
-        public BotonesPagarExpendedor(Expendedor exp, int valor_moneda) {
-            super();
-            this.exp = exp;
+        public Moneda aux_moneda;
+        BotonesPagoExpendedor(String texto, int valor_moneda) {
+            super(texto);
             this.valor_moneda = valor_moneda;
             this.addActionListener(new EscuchadorBoton());
         }
 
         private class EscuchadorBoton implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                //TODO
+
+                switch (valor_moneda) {
+                    case 100:
+                        if (comprador.cuantasMonedas(100) > 0) {
+                            aux_moneda = comprador.getMoneda(100);
+                            updateLabelMonedasText();
+                        }
+                        else aux_moneda = null;
+                        break;
+                    case 500:
+                        if (comprador.cuantasMonedas(500) > 0) {
+                            aux_moneda = comprador.getMoneda(500);
+                            updateLabelMonedasText();
+                        }
+                        else aux_moneda = null;
+                        break;
+                    case 1000:
+                        if (comprador.cuantasMonedas(1000) > 0) {
+                            aux_moneda = comprador.getMoneda(1000);
+                            updateLabelMonedasText();
+                        }
+                        else aux_moneda = null;
+                        break;
+                    default:
+                        break;
+                }
+
+                expendedor.addMonedaPago(aux_moneda);
+                if (aux_moneda != null) {
+                    System.out.println("Moneda de " + aux_moneda.getValor() + " con serie: " + aux_moneda.getSerie() + " agregada al expendedor");
+                }
+                labelMonedasPagadas.setText("Monto ingresado: " + expendedor.getPago());
+                aux_moneda = null;
             }
         }
+
     }
 
     @Override
