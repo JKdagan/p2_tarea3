@@ -23,6 +23,8 @@ public class Expendedor {
     public static int aux_serie = 100;
     private ProductEnum cualProducto;
 
+    public static boolean flag_deposito_ocupado;
+
     private void llenarDepositos(int cantidadInicial) {
         for (int i = 0; i < cantidadInicial; i++) {
             //aux para denotar que son temporales solo para llenar los depositos
@@ -49,61 +51,69 @@ public class Expendedor {
         this.dep_monedasvuelto = new Deposito<Moneda>();
         this.dep_monedaspagadas = new Deposito<Moneda>();
         this.salida = new DepositoSalida();
+        this.flag_deposito_ocupado = false;
         llenarDepositos(cantidadInicial);
         this.pago = 0;
     }
     public void comprarProducto() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
 
         if (salida.getProducto() != null) {
+            this.flag_deposito_ocupado = true;
+        }
+
+        if (flag_deposito_ocupado == false) {
+
+            int precio_producto = cualProducto.getPrecio();
+
+            //Si la moneda es menor al precio.
+            if (pago < precio_producto) {
+                throw new PagoInsuficienteException("No alcanza el pago");
+            }
+
+            Producto producto;
+
+            switch (cualProducto) {
+                case COCA_COLA -> producto = dep_cocacola.getFromDeposito();
+                case SPRITE -> producto = dep_sprite.getFromDeposito();
+                case FANTA -> producto = dep_fanta.getFromDeposito();
+                case SUPER8 -> producto = dep_super8.getFromDeposito();
+                case SNICKERS -> producto = dep_snickers.getFromDeposito();
+                default -> {
+                    //Numero erroneo de deposito (No existe) NoHayProductoExcepcion
+                    throw new NoHayProductoException("El deposito seleccionado no existe");
+                }
+            }
+
+            if (producto == null) {
+                //Si se acabaron los productos: NoHayProductioExcepcion.
+                throw new NoHayProductoException("No quedan del producto seleccionado o no existe en el deposito.");
+            }
+            else {
+                //Compra exitosa.
+
+                if (pago == precio_producto) {
+                    //No hay vuelto
+                    salida.setProducto(producto);
+                }
+
+                else {
+                    //Si hay vuelto y se devuelve de a 100.
+                    int cambio = (pago - precio_producto)/100;
+                    for (int i = 0; i < cambio; i++) {
+                        Moneda m_aux = new Moneda100(Moneda100.serie_100);
+                        Moneda100.serie_100++;
+                        dep_monedasvuelto.addToDeposito(m_aux);
+                    }
+                    System.out.println("DEBUG PAGO RESTADO " + precio_producto);
+                    pago -= precio_producto;
+                    salida.setProducto(producto);
+                }
+            }
+        }
+        else {
             throw new DepositoOcupadoException("El deposito de salida esta ocupado, retire el producto antes de la siguiente compra");
         }
 
-        int precio_producto = cualProducto.getPrecio();
-
-        //Si la moneda es menor al precio.
-        if (pago < precio_producto) {
-            throw new PagoInsuficienteException("No alcanza el pago");
-        }
-
-        Producto producto;
-
-        switch (cualProducto) {
-            case COCA_COLA -> producto = dep_cocacola.getFromDeposito();
-            case SPRITE -> producto = dep_sprite.getFromDeposito();
-            case FANTA -> producto = dep_fanta.getFromDeposito();
-            case SUPER8 -> producto = dep_super8.getFromDeposito();
-            case SNICKERS -> producto = dep_snickers.getFromDeposito();
-            default -> {
-                //Numero erroneo de deposito (No existe) NoHayProductoExcepcion
-                throw new NoHayProductoException("El deposito seleccionado no existe");
-            }
-        }
-
-        if (producto == null) {
-            //Si se acabaron los productos: NoHayProductioExcepcion.
-            throw new NoHayProductoException("No quedan del producto seleccionado o no existe en el deposito.");
-        }
-        else {
-            //Compra exitosa.
-
-            if (pago == precio_producto) {
-                //No hay vuelto
-                salida.setProducto(producto);
-            }
-
-            else {
-                //Si hay vuelto y se devuelve de a 100.
-                int cambio = (pago - precio_producto)/100;
-
-                for (int i = 0; i < cambio; i++) {
-                    Moneda m_aux = new Moneda100(Moneda100.serie_100);
-                    Moneda100.serie_100++;
-                    dep_monedasvuelto.addToDeposito(m_aux);
-                }
-                pago -= precio_producto;
-                salida.setProducto(producto);
-            }
-        }
     }
     public void addMonedaPago(Moneda m) {
         if (m == null) pago += 0;

@@ -14,10 +14,10 @@ public class PanelExpendedor extends JPanel {
 
     public PanelExpendedor(Color color, Expendedor expendedor) {
         super();
-        this.panel_ingreso_dinero = new PanelExpDinero(Color.orange);
-        this.panel_productos_expendedor = new PanelExpProductos(Color.magenta);
-        this.panel_producto_comprado = new PanelExpCompra(Color.blue);
         this.expendedor = expendedor;
+        this.panel_ingreso_dinero = new PanelExpDinero(Color.orange);
+        this.panel_productos_expendedor = new PanelExpProductos(Color.magenta, expendedor);
+        this.panel_producto_comprado = new PanelExpCompra(Color.blue);
 
         this.add(panel_ingreso_dinero);
         this.add(panel_productos_expendedor);

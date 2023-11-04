@@ -2,6 +2,7 @@ package tarea3_GUI;
 
 import Excepciones.*;
 import Productos.*;
+import tarea3_logica.Expendedor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +38,10 @@ public class PanelExpProductos extends JPanel {
     private JLabel fraseSuper8;
     private JLabel fraseSnickers;
 
-    public PanelExpProductos(Color color) {
+    private Expendedor expendedor;
+
+    public PanelExpProductos(Color color, Expendedor expendedor) {
+        this.expendedor = expendedor;
         this.setBackground(color);
         this.setLayout(new BorderLayout());
 
@@ -142,20 +146,26 @@ public class PanelExpProductos extends JPanel {
         this.addActionListener(new EscuchadorBoton());
     }
     private class EscuchadorBoton implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
             try {
-                PanelPrincipal.expendedor.elegirProducto(producto);
-                PanelPrincipal.expendedor.comprarProducto();
+                expendedor.elegirProducto(producto);
+                expendedor.comprarProducto();
                 PanelExpDinero.updateLabelMonedasPagadas();
-                //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
 
-                switch(producto){
-                    case COCA_COLA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/CocaCola.jpeg")));
-                    case FANTA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Fanta.jpeg")));
-                    case SPRITE -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Sprite.jpeg")));
-                    case SUPER8 -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Super8.jpeg")));
-                    case SNICKERS -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Snickers.jpeg")));
+                if (expendedor.flag_deposito_ocupado == false) {
+                    //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
+
+                    switch(producto){
+                        case COCA_COLA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/CocaCola.jpeg")));
+                        case FANTA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Fanta.jpeg")));
+                        case SPRITE -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Sprite.jpeg")));
+                        case SUPER8 -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Super8.jpeg")));
+                        case SNICKERS -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Snickers.jpeg")));
+                    }
                 }
+
+
             }
             catch (NoHayProductoException ex) {
                 // "NoHayProductoException"
@@ -164,6 +174,8 @@ public class PanelExpProductos extends JPanel {
             } catch (PagoInsuficienteException ex) {
                 // "PagoInsuficienteException"
             } catch (DepositoOcupadoException ex) {
+                System.out.println("El deposito de salida esta ocupado, retire el producto antes de la siguiente compra");
+                System.out.println(PanelPrincipal.expendedor.getPago());
                 //"DepositoOcupadoException"
             }// EN LAS EXECPCIONES TENEMOS QUE PONER LAS VENTANAS EMERGENTES
         }
