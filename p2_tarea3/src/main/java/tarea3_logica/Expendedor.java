@@ -107,8 +107,11 @@ public class Expendedor {
         }
     }
     public void addMonedaPago(Moneda m) {
-        this.dep_monedaspagadas.addToDeposito(m);
-        pago += m.getValor();
+        if (m == null) pago += 0;
+        else {
+            this.dep_monedaspagadas.addToDeposito(m);
+            pago += m.getValor();
+        }
     }
     public void elegirProducto(ProductEnum cualProducto) {
         this.cualProducto = cualProducto;

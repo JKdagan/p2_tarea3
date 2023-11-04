@@ -136,25 +136,32 @@ public class PanelComprador extends JPanel {
                             aux_moneda = comprador.getMoneda(100);
                             updateLabelMonedasText();
                         }
+                        else aux_moneda = null;
                         break;
                     case 500:
                         if (comprador.cuantasMonedas(500) > 0) {
                             aux_moneda = comprador.getMoneda(500);
                             updateLabelMonedasText();
                         }
+                        else aux_moneda = null;
                         break;
                     case 1000:
                         if (comprador.cuantasMonedas(1000) > 0) {
                             aux_moneda = comprador.getMoneda(1000);
                             updateLabelMonedasText();
                         }
+                        else aux_moneda = null;
                         break;
                     default:
                         break;
                 }
 
                 expendedor.addMonedaPago(aux_moneda);
+                if (aux_moneda != null) {
+                    System.out.println("Moneda de " + aux_moneda.getValor() + " con serie: " + aux_moneda.getSerie() + " agregada al expendedor");
+                }
                 labelMonedasPagadas.setText("Monto ingresado: " + expendedor.getPago());
+                aux_moneda = null;
             }
         }
 
