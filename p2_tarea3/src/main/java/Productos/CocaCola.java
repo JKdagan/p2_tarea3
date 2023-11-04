@@ -7,6 +7,6 @@ public class CocaCola extends Bebida {
         }
 
         public String getNombre() {
-            return "Coca-Cola";
+            return "CocaCola";
         }
 }

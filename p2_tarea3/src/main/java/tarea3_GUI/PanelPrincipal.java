@@ -6,21 +6,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelPrincipal extends JPanel {
-    private PanelComprador com;
-    private PanelExpendedor exp;
+    private PanelComprador panel_comprador;
+    private PanelExpendedor panel_expendedor;
 
     public static Comprador comprador;
     public static Expendedor expendedor;
 
     public PanelPrincipal(Color color){
         super();
-        comprador = new Comprador(5);
-        expendedor = new Expendedor(5);
-        exp = new PanelExpendedor(Color.green, expendedor);
-        com = new PanelComprador(Color.white, comprador, expendedor, PanelExpDinero.labelMonedasPagadas);
+        this.comprador = new Comprador(5);
+        this.expendedor = new Expendedor(5);
+        this.panel_expendedor = new PanelExpendedor(Color.green, expendedor);
+        this.panel_comprador = new PanelComprador(Color.white, comprador, expendedor, PanelExpDinero.labelMonedasPagadas);
         this.setBackground(color);
-        this.add(exp);
-        this.add(com);
+        this.add(panel_expendedor);
+        this.add(panel_comprador);
         this.setLayout(new GridLayout(1,2));
     }
 
@@ -30,9 +30,9 @@ public class PanelPrincipal extends JPanel {
         //el de la super clase solo pinta el fondo (background)
 
         //llama al metodo paint definido en el PanelComprador
-        com.paint(g);
+        panel_comprador.paint(g);
 
         //llama al metodo paint definido en el PanelExpendedor
-        exp.paint(g);
+        panel_expendedor.paint(g);
     }
 }

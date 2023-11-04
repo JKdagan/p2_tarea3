@@ -7,6 +7,6 @@ public class Super8 extends Dulce {
     }
 
     public String getNombre() {
-        return "Super 8";
+        return "Super8";
     }
 }

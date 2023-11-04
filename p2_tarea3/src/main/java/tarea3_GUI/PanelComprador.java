@@ -33,7 +33,7 @@ public class PanelComprador extends JPanel {
 
         this.setBackground(color);
         this.setLayout(new BorderLayout());
-        imagenComprador = new ImageIcon(getClass().getResource("/imagenes/Comprador.jpeg"));
+        imagenComprador = new ImageIcon(getClass().getResource("/Comprador.jpeg"));
         if (imagenComprador != null) {
             imagenComprador.setImage(imagenComprador.getImage().getScaledInstance(200, 500, Image.SCALE_DEFAULT));
             JLabel label = new JLabel(imagenComprador);
