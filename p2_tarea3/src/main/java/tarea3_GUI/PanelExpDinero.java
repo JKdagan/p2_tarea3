@@ -4,18 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 public class PanelExpDinero extends JPanel {
 
-    static JLabel labelMonedasPagadas;
+    public static JLabel labelMonedasPagadas;
     public PanelExpDinero(Color color) {
         super();
         this.setBackground(color);
         labelMonedasPagadas = new JLabel("Monto ingresado: ");
         add(labelMonedasPagadas);
-
     }
-    public static void actualizarLabelMonedasPagadas(int cantidadMonedas) {
-        labelMonedasPagadas.setText("Monedas ingresadas: " + cantidadMonedas);
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
