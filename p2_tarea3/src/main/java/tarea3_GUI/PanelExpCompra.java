@@ -13,11 +13,9 @@ public class PanelExpCompra extends JPanel {
     private static JLabel labelImagen;
     private BotonRetirarProducto boton_retirar_producto;
     private JPanel panel;
-    private Expendedor expendedor;
 
-    public PanelExpCompra(Color color, Expendedor expendedor) {
+    public PanelExpCompra(Color color) {
         super();
-        this.expendedor = expendedor;
         this.setBackground(color);
 
         labelImagen = new JLabel();
@@ -57,7 +55,7 @@ public class PanelExpCompra extends JPanel {
 
         private class EscuchadorBoton implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                Producto producto = expendedor.getProducto();
+                Producto producto = PanelPrincipal.expendedor.getProducto();
                 if (producto != null) {
                     PanelPrincipal.comprador.addProducto(producto);
                     actualizarImagen(null);

@@ -38,10 +38,8 @@ public class PanelExpProductos extends JPanel {
     private JLabel fraseSuper8;
     private JLabel fraseSnickers;
 
-    private Expendedor expendedor;
 
-    public PanelExpProductos(Color color, Expendedor expendedor) {
-        this.expendedor = expendedor;
+    public PanelExpProductos(Color color) {
         this.setBackground(color);
         this.setLayout(new BorderLayout());
 
@@ -107,11 +105,11 @@ public class PanelExpProductos extends JPanel {
         add(imagenesPanel, BorderLayout.SOUTH);
     }
     private void mostrarPreciosyCantidad() {
-        fraseCocaCola = new JLabel("<html>Precio: $1200<br>Disponibles:" + expendedor.dep_cocacola.cuantoHay() + "</html>");
-        fraseSprite = new JLabel("<html>Precio:$1200<br>Disponibles:"+ expendedor.dep_sprite.cuantoHay() + "</html>");
-        fraseFanta = new JLabel("<html>Precio:$1000<br>Disponibles:"+ expendedor.dep_fanta.cuantoHay() + "</html>");
-        fraseSuper8 = new JLabel("<html>Precio:$300<br>Disponibles:"+ expendedor.dep_super8.cuantoHay() + "</html>");
-        fraseSnickers = new JLabel("<html>Precio:$400<br>Disponibles:"+ expendedor.dep_snickers.cuantoHay() + "</html>");
+        fraseCocaCola = new JLabel("<html>Precio: $1200<br>Disponibles:" + PanelPrincipal.expendedor.dep_cocacola.cuantoHay() + "</html>");
+        fraseSprite = new JLabel("<html>Precio:$1200<br>Disponibles:"+ PanelPrincipal.expendedor.dep_sprite.cuantoHay() + "</html>");
+        fraseFanta = new JLabel("<html>Precio:$1000<br>Disponibles:"+ PanelPrincipal.expendedor.dep_fanta.cuantoHay() + "</html>");
+        fraseSuper8 = new JLabel("<html>Precio:$300<br>Disponibles:"+ PanelPrincipal.expendedor.dep_super8.cuantoHay() + "</html>");
+        fraseSnickers = new JLabel("<html>Precio:$400<br>Disponibles:"+ PanelPrincipal.expendedor.dep_snickers.cuantoHay() + "</html>");
         frasesPanel = new JPanel();
         frasesPanel.setLayout(new BoxLayout(frasesPanel, BoxLayout.LINE_AXIS));
         fraseCocaCola.setHorizontalAlignment(SwingConstants.CENTER);
@@ -132,11 +130,11 @@ public class PanelExpProductos extends JPanel {
         add(frasesPanel, BorderLayout.CENTER);
     }
     private void updatePreciosyCantidad() {
-        fraseCocaCola.setText("<html>Precio: $1200<br>Disponibles:" + expendedor.dep_cocacola.cuantoHay() + "</html>");
-        fraseSprite.setText("<html>Precio:$1200<br>Disponibles:"+ expendedor.dep_sprite.cuantoHay() + "</html>");
-        fraseFanta.setText("<html>Precio:$1000<br>Disponibles:"+ expendedor.dep_fanta.cuantoHay() + "</html>");
-        fraseSuper8.setText("<html>Precio:$300<br>Disponibles:"+ expendedor.dep_super8.cuantoHay() + "</html>");
-        fraseSnickers.setText("<html>Precio:$400<br>Disponibles:"+ expendedor.dep_snickers.cuantoHay() + "</html>");
+        fraseCocaCola.setText("<html>Precio: $1200<br>Disponibles:" + PanelPrincipal.expendedor.dep_cocacola.cuantoHay() + "</html>");
+        fraseSprite.setText("<html>Precio:$1200<br>Disponibles:"+ PanelPrincipal.expendedor.dep_sprite.cuantoHay() + "</html>");
+        fraseFanta.setText("<html>Precio:$1000<br>Disponibles:"+ PanelPrincipal.expendedor.dep_fanta.cuantoHay() + "</html>");
+        fraseSuper8.setText("<html>Precio:$300<br>Disponibles:"+ PanelPrincipal.expendedor.dep_super8.cuantoHay() + "</html>");
+        fraseSnickers.setText("<html>Precio:$400<br>Disponibles:"+ PanelPrincipal.expendedor.dep_snickers.cuantoHay() + "</html>");
     }
     private class BotonesProductos extends JButton {
 
@@ -150,11 +148,11 @@ public class PanelExpProductos extends JPanel {
 
         public void actionPerformed(ActionEvent e) {
             try {
-                expendedor.elegirProducto(producto);
-                expendedor.comprarProducto();
+                PanelPrincipal.expendedor.elegirProducto(producto);
+                PanelPrincipal.expendedor.comprarProducto();
                 PanelExpendedor.updateLabelMonedasPagadas();
 
-                if (expendedor.flag_deposito_ocupado == false) {
+                if (PanelPrincipal.expendedor.flag_deposito_ocupado == false) {
                     //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
 
                     switch(producto){
