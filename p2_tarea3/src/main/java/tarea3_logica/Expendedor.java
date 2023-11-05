@@ -93,18 +93,19 @@ public class Expendedor {
 
                 if (pago == precio_producto) {
                     //No hay vuelto
+                    pago = 0;
                     salida.setProducto(producto);
                 }
 
                 else {
                     //Si hay vuelto y se devuelve de a 100.
                     int cambio = (pago - precio_producto)/100;
+                    pago -= precio_producto;
                     for (int i = 0; i < cambio; i++) {
                         Moneda m_aux = new Moneda100(Moneda100.serie_100);
                         Moneda100.serie_100++;
                         dep_monedasvuelto.addToDeposito(m_aux);
                     }
-                    pago -= precio_producto;
                     salida.setProducto(producto);
                 }
             }
@@ -132,7 +133,12 @@ public class Expendedor {
         return this.salida.getProducto();
     }
     public Moneda getMonedaVuelto() {
-        return this.dep_monedasvuelto.getFromDeposito();
+        Moneda aux = this.dep_monedasvuelto.getFromDeposito();
+        if (pago >= 100 && aux != null){
+            pago -= 100;
+            return aux;
+        }
+        else return null;
     }
     public Deposito<Moneda> getDepMonedasPagadas() {
         return this.dep_monedaspagadas;

@@ -7,11 +7,13 @@ import java.awt.event.ActionListener;
 
 import Productos.*;
 import tarea3_logica.*;
+import Monedas.*;
 import javax.swing.border.EmptyBorder;
 
 public class PanelExpCompra extends JPanel {
     private static JLabel labelImagen;
     private BotonRetirarProducto boton_retirar_producto;
+    private BotonRetirarVuelto boton_retirar_vuelto;
     private JPanel panel;
 
     public PanelExpCompra(Color color) {
@@ -22,11 +24,13 @@ public class PanelExpCompra extends JPanel {
         add(labelImagen);
 
         boton_retirar_producto = new BotonRetirarProducto("Retirar producto");
+        boton_retirar_vuelto = new BotonRetirarVuelto("Retirar vuelto de a 100");
         panel = new JPanel();
         panel.add(boton_retirar_producto);
+        panel.add(boton_retirar_vuelto);
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        add(panel, BorderLayout.EAST);
+        add(panel);
 
     }
     public static void actualizarImagen(ImageIcon imagen) {
@@ -62,6 +66,24 @@ public class PanelExpCompra extends JPanel {
                 }
                 else {
                     actualizarImagen(null);
+                }
+            }
+        }
+    }
+
+    private class BotonRetirarVuelto extends JButton {
+        public BotonRetirarVuelto(String texto) {
+            super(texto);
+            this.addActionListener(new EscuchadorBoton());
+        }
+
+        private class EscuchadorBoton implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                Moneda aux = PanelPrincipal.expendedor.getMonedaVuelto();
+                PanelExpendedor.updateLabelMonedasPagadas();
+                if (aux != null) {
+                    PanelPrincipal.comprador.addMoneda(aux);
+                    PanelComprador.updateLabelMonedasText();
                 }
             }
         }
