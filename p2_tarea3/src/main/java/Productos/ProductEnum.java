@@ -23,13 +23,13 @@ public enum ProductEnum {
     public String getNombre(){
         switch (codigo){
             case 1:
-                return "Coca-Cola";
+                return "CocaCola";
             case 2:
                 return "Sprite";
             case 3:
                 return "Fanta";
             case 4:
-                return "Super 8";
+                return "Super8";
             case 5:
                 return "Snickers";
             default:

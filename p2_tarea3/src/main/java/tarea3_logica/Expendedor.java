@@ -104,7 +104,6 @@ public class Expendedor {
                         Moneda100.serie_100++;
                         dep_monedasvuelto.addToDeposito(m_aux);
                     }
-                    System.out.println("DEBUG PAGO RESTADO " + precio_producto);
                     pago -= precio_producto;
                     salida.setProducto(producto);
                 }
@@ -129,6 +128,7 @@ public class Expendedor {
         return this.pago;
     }
     public Producto getProducto() {
+        this.flag_deposito_ocupado = false;
         return this.salida.getProducto();
     }
     public Moneda getMonedaVuelto() {
