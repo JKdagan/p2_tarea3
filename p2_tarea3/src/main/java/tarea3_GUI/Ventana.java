@@ -12,6 +12,7 @@ public class Ventana extends JFrame {
 
         PanelPrincipal panel= new PanelPrincipal(Color.white);
 
+        this.setResizable(false);
         this.setVisible(visible);
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 
 public class PanelComprador extends JPanel {
     private ImageIcon imagenComprador;
-    private JLabel labelMonedas100;
-    private JLabel labelMonedas500;
-    private JLabel labelMonedas1000;
-    private JLabel labelMonedasPagadas;
+    private static JLabel labelMonedas100;
+    private static JLabel labelMonedas500;
+    private static JLabel labelMonedas1000;
+    private static JLabel labelMonedasPagadas;
     private JPanel botones_superior;
     private JPanel botones_inferior;
     private JPanel monedas_panel;
@@ -25,23 +25,14 @@ public class PanelComprador extends JPanel {
     private BotonesPagoExpendedor boton_pagar500;
     private BotonesPagoExpendedor boton_pagar1000;
 
-    private Expendedor expendedor;
-    private Comprador comprador;
-
-    public PanelComprador(Color color, Comprador comprador, Expendedor expendedor, JLabel labelMonedasPagadas) {
+    public PanelComprador(Color color) {
         super();
-        this.comprador = comprador;
-        this.expendedor = expendedor;
         this.labelMonedasPagadas = labelMonedasPagadas;
-
         this.setBackground(color);
         this.setLayout(new BorderLayout());
-        imagenComprador = new ImageIcon(getClass().getResource("/Comprador.jpeg"));
-        if (imagenComprador != null) {
-            imagenComprador.setImage(imagenComprador.getImage().getScaledInstance(200, 500, Image.SCALE_DEFAULT));
-            JLabel label = new JLabel(imagenComprador);
-            add(label, BorderLayout.CENTER);
-        }
+
+        //Mostrar imagen del comprador
+        this.mostrarFotoComprador();
 
         //Botones para darle monedas al comprador y pagar en expendedor
         this.inicializarBotones();
@@ -51,44 +42,52 @@ public class PanelComprador extends JPanel {
 
     }
 
-    public void updateLabelMonedasText() {
-        labelMonedas100.setText("Monedas de 100: " + comprador.cuantasMonedas(100));
-        labelMonedas500.setText("Monedas de 500: " + comprador.cuantasMonedas(500));
-        labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+    public static void updateLabelMonedasText() {
+        labelMonedas100.setText("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
+        labelMonedas500.setText("Monedas de 500: " + PanelPrincipal.comprador.cuantasMonedas(500));
+        labelMonedas1000.setText("Monedas de 1000: " + PanelPrincipal.comprador.cuantasMonedas(1000));
     }
     private void inicializarBotones() {
         //botones para pagar
-        this.botones_superior = new JPanel();
-        this.botones_superior.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        this.boton_pagar100 = new BotonesPagoExpendedor("Pagar en maquina con 100", 100);
-        this.boton_pagar500 = new BotonesPagoExpendedor("Pagar en maquina con 500", 500);
-        this.boton_pagar1000 = new BotonesPagoExpendedor("Pagar en maquina con 1000", 1000);
-        this.botones_superior.add(boton_pagar100);
-        this.botones_superior.add(boton_pagar500);
-        this.botones_superior.add(boton_pagar1000);
+        botones_superior = new JPanel();
+        botones_superior.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        boton_pagar100 = new BotonesPagoExpendedor("Pagar en maquina con 100", 100);
+        boton_pagar500 = new BotonesPagoExpendedor("Pagar en maquina con 500", 500);
+        boton_pagar1000 = new BotonesPagoExpendedor("Pagar en maquina con 1000", 1000);
+        botones_superior.add(boton_pagar100);
+        botones_superior.add(boton_pagar500);
+        botones_superior.add(boton_pagar1000);
         add(botones_superior, BorderLayout.NORTH);
 
         //botones para darle mas dinero al comprador
-        this.botones_inferior = new JPanel();
-        this.botones_inferior.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        this.boton_add100 = new BotonesMonedaComprador("Añadirme una Moneda de 100",100);
-        this.boton_add500 = new BotonesMonedaComprador("Añadirme una Moneda de 500",500);
-        this.boton_add1000 = new BotonesMonedaComprador("Añadirme una Moneda de 1000",1000);
-        this.botones_inferior.add(boton_add100);
-        this.botones_inferior.add(boton_add500);
-        this.botones_inferior.add(boton_add1000);
+        botones_inferior = new JPanel();
+        botones_inferior.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        boton_add100 = new BotonesMonedaComprador("Añadirme una Moneda de 100",100);
+        boton_add500 = new BotonesMonedaComprador("Añadirme una Moneda de 500",500);
+        boton_add1000 = new BotonesMonedaComprador("Añadirme una Moneda de 1000",1000);
+        botones_inferior.add(boton_add100);
+        botones_inferior.add(boton_add500);
+        botones_inferior.add(boton_add1000);
         add(botones_inferior, BorderLayout.SOUTH);
     }
     private void mostrarMonedasComprador() {
-        this.labelMonedas100 = new JLabel("Monedas de 100: " + comprador.cuantasMonedas(100));
-        this.labelMonedas500 = new JLabel("Monedas de 500: " + comprador.cuantasMonedas(500));
-        this.labelMonedas1000 = new JLabel("Monedas de 1000: " + comprador.cuantasMonedas(1000));
-        this.monedas_panel = new JPanel();
-        this.monedas_panel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Utilizar FlowLayout alineado a la izquierda
-        this.monedas_panel.add(labelMonedas100);
-        this.monedas_panel.add(labelMonedas500);
-        this.monedas_panel.add(labelMonedas1000);
+        labelMonedas100 = new JLabel("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
+        labelMonedas500 = new JLabel("Monedas de 500: " + PanelPrincipal.comprador.cuantasMonedas(500));
+        labelMonedas1000 = new JLabel("Monedas de 1000: " + PanelPrincipal.comprador.cuantasMonedas(1000));
+        monedas_panel = new JPanel();
+        monedas_panel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Utilizar FlowLayout alineado a la izquierda
+        monedas_panel.add(labelMonedas100);
+        monedas_panel.add(labelMonedas500);
+        monedas_panel.add(labelMonedas1000);
         add(monedas_panel, BorderLayout.WEST);
+    }
+    private void mostrarFotoComprador() {
+        imagenComprador = new ImageIcon(getClass().getResource("/Comprador.jpeg"));
+        if (imagenComprador != null) {
+            imagenComprador.setImage(imagenComprador.getImage().getScaledInstance(200, 500, Image.SCALE_DEFAULT));
+            JLabel label = new JLabel(imagenComprador);
+            add(label, BorderLayout.CENTER);
+        }
     }
     private class BotonesMonedaComprador extends JButton {
         public Moneda aux_moneda;
@@ -104,18 +103,18 @@ public class PanelComprador extends JPanel {
                 switch (valor_moneda) {
                     case 100:
                         aux_moneda = new Moneda100(Moneda100.serie_100);
-                        comprador.addMoneda(aux_moneda);
-                        labelMonedas100.setText("Monedas de 100: " + comprador.cuantasMonedas(100));
+                        PanelPrincipal.comprador.addMoneda(aux_moneda);
+                        labelMonedas100.setText("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
                         break;
                     case 500:
                         aux_moneda = new Moneda500(Moneda500.serie_500);
-                        comprador.addMoneda(aux_moneda);
-                        labelMonedas500.setText("Monedas de 500: " + comprador.cuantasMonedas(500));
+                        PanelPrincipal.comprador.addMoneda(aux_moneda);
+                        labelMonedas500.setText("Monedas de 500: " + PanelPrincipal.comprador.cuantasMonedas(500));
                         break;
                     case 1000:
                         aux_moneda = new Moneda1000(Moneda1000.serie_1000);
-                        comprador.addMoneda(aux_moneda);
-                        labelMonedas1000.setText("Monedas de 1000: " + comprador.cuantasMonedas(1000));
+                        PanelPrincipal.comprador.addMoneda(aux_moneda);
+                        labelMonedas1000.setText("Monedas de 1000: " + PanelPrincipal.comprador.cuantasMonedas(1000));
                         break;
                     default:
                         break;
@@ -139,22 +138,22 @@ public class PanelComprador extends JPanel {
 
                 switch (valor_moneda) {
                     case 100:
-                        if (comprador.cuantasMonedas(100) > 0) {
-                            aux_moneda = comprador.getMoneda(100);
+                        if (PanelPrincipal.comprador.cuantasMonedas(100) > 0) {
+                            aux_moneda = PanelPrincipal.comprador.getMoneda(100);
                             updateLabelMonedasText();
                         }
                         else aux_moneda = null;
                         break;
                     case 500:
-                        if (comprador.cuantasMonedas(500) > 0) {
-                            aux_moneda = comprador.getMoneda(500);
+                        if (PanelPrincipal.comprador.cuantasMonedas(500) > 0) {
+                            aux_moneda = PanelPrincipal.comprador.getMoneda(500);
                             updateLabelMonedasText();
                         }
                         else aux_moneda = null;
                         break;
                     case 1000:
-                        if (comprador.cuantasMonedas(1000) > 0) {
-                            aux_moneda = comprador.getMoneda(1000);
+                        if (PanelPrincipal.comprador.cuantasMonedas(1000) > 0) {
+                            aux_moneda = PanelPrincipal.comprador.getMoneda(1000);
                             updateLabelMonedasText();
                         }
                         else aux_moneda = null;
@@ -163,11 +162,11 @@ public class PanelComprador extends JPanel {
                         break;
                 }
 
-                expendedor.addMonedaPago(aux_moneda);
+                PanelPrincipal.expendedor.addMonedaPago(aux_moneda);
                 if (aux_moneda != null) {
                     System.out.println("Moneda de " + aux_moneda.getValor() + " con serie: " + aux_moneda.getSerie() + " agregada al expendedor");
                 }
-                labelMonedasPagadas.setText("Monto ingresado: " + expendedor.getPago());
+                PanelExpendedor.updateLabelMonedasPagadas();
                 aux_moneda = null;
             }
         }
