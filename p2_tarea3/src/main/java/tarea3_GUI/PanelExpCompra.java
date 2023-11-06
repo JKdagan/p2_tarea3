@@ -34,6 +34,11 @@ public class PanelExpCompra extends JPanel {
 
     }
     public static void actualizarImagen(ImageIcon imagen) {
+        if (imagen != null) {
+            Image img = imagen.getImage();
+            Image newImg = img.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+            imagen = new ImageIcon(newImg);
+        }
         labelImagen.setIcon(imagen);
     }
     @Override
