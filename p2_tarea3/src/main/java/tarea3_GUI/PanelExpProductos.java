@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class PanelExpProductos extends JPanel {
 
@@ -168,14 +169,13 @@ public class PanelExpProductos extends JPanel {
 
             }
             catch (NoHayProductoException ex) {
-                // "NoHayProductoException"
+                JOptionPane.showMessageDialog(null, "No hay suficientes productos disponibles", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (PagoIncorrectoException ex) {
-                // "PagoIncorrectoException"
+                JOptionPane.showMessageDialog(null, "El pago ingresado es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (PagoInsuficienteException ex) {
-                // "PagoInsuficienteException"
+                JOptionPane.showMessageDialog(null, "El pago es insuficiente", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (DepositoOcupadoException ex) {
-                System.out.println("El deposito de salida esta ocupado, retire el producto antes de la siguiente compra");
-                System.out.println(PanelPrincipal.expendedor.getPago());
+                JOptionPane.showMessageDialog(null, "El depósito de salida está ocupado, retire el producto para seguir comprando", "Error", JOptionPane.ERROR_MESSAGE);
                 //"DepositoOcupadoException"
             }// EN LAS EXECPCIONES TENEMOS QUE PONER LAS VENTANAS EMERGENTES
         }
