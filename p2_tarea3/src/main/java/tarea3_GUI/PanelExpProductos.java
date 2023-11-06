@@ -176,8 +176,7 @@ public class PanelExpProductos extends JPanel {
                 JOptionPane.showMessageDialog(null, "El pago es insuficiente", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (DepositoOcupadoException ex) {
                 JOptionPane.showMessageDialog(null, "El depósito de salida está ocupado, retire el producto para seguir comprando", "Error", JOptionPane.ERROR_MESSAGE);
-                //"DepositoOcupadoException"
-            }// EN LAS EXECPCIONES TENEMOS QUE PONER LAS VENTANAS EMERGENTES
+            }
         }
     }
 
