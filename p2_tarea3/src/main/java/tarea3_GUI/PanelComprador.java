@@ -132,7 +132,6 @@ public class PanelComprador extends JPanel {
             this.valor_moneda = valor_moneda;
             this.addActionListener(new EscuchadorBoton());
         }
-
         private class EscuchadorBoton implements ActionListener {
             public void actionPerformed(ActionEvent e) {
 
@@ -161,7 +160,6 @@ public class PanelComprador extends JPanel {
                     default:
                         break;
                 }
-
                 PanelPrincipal.expendedor.addMonedaPago(aux_moneda);
                 if (aux_moneda != null) {
                     System.out.println("Moneda de " + aux_moneda.getValor() + " con serie: " + aux_moneda.getSerie() + " agregada al expendedor");
@@ -170,12 +168,9 @@ public class PanelComprador extends JPanel {
                 aux_moneda = null;
             }
         }
-
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
-
 }

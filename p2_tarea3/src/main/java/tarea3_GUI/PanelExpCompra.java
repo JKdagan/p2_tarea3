@@ -53,7 +53,6 @@ public class PanelExpCompra extends JPanel {
         int y = (height - rectHeight) / 2;
         g.fillRect(x, y, rectWidth, rectHeight);
     }
-
     private class BotonRetirarProducto extends JButton {
         public BotonRetirarProducto(String texto) {
             super(texto);
@@ -72,8 +71,7 @@ public class PanelExpCompra extends JPanel {
                 }
             }
         }
-    }
-
+    }//PanelExpCompra
     private class BotonRetirarVuelto extends JButton {
         public BotonRetirarVuelto(String texto) {
             super(texto);

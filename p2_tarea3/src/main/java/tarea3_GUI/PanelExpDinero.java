@@ -10,7 +10,7 @@ public class PanelExpDinero extends JPanel {
         this.setBackground(color);
         labelMonedasPagadas = new JLabel();
         labelMonedasPagadas.setText("Monto ingresado: 0");
-        add(labelMonedasPagadas, BorderLayout.CENTER);
+        add(labelMonedasPagadas, BorderLayout.WEST);
     }
 
 
