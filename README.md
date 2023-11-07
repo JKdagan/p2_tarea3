@@ -4,13 +4,15 @@ Al acceder a comprador/expendedor dentro de los paneles usarlos como PanelPrinci
 
 ##Cosas por hacer ahora:
 
--crear un boton en PanelExpCompra "Recoger" el elimine la imagen del PanelExpCompra y la de PanelExpDinero(tambien editar el string q indica la cantidad de monedas de vuelto a 0) y las translade al lado del comprador
+-arreglar el boton de recoger vuelto, porque resta las monedas que se le agregaron a la maquina para comprar, deben restarse del vuelto y añadirle una moneda100 al comprador(JTorres)
 
--hacer que al momento de comprar otra cocacola seguida se eliminen las imagenes que se colocaron al lado del Comprador, printear productos ya comprados en la consola 
+-hacer que se vea una imagen de la moneda100 en PanelExpDinero como representacion y hacer que si el vuelto=0 se elimine esa imagen como que se recogio todo(JTorres)
 
--crear ventanas emergentes para las excepciones
+-boton recoger producto elimina la imagen de PanelExpCompra, no la coloca al lado del comprador (no es necesario segun yo, se entiende que al apretar recogerproducto el comprador se queda con el producto, mas encima tenemos la excepcion que no puede comprar mientras tiene otro producto sin recoger)
 
--Dibujos para las monedas de Comprador, tal que al pagar en expendedor se muestre en el cuadro de ExpDinero para mostrar que se ingresa la moneda (Imprime su serie en consola)
+-documentar(JTorres lo grafico y JCadagan lo logico porque tu cambiaste mas esa parte)
+-UML(si puedes, JCadagan)
+-enviar porfin
 
 
 
