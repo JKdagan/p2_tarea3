@@ -5,11 +5,14 @@ import tarea3_logica.*;
 import javax.swing.*;
 import java.awt.*;
 
+import static tarea3_GUI.PanelExpDinero.labelVuelto;
+
 
 public class PanelExpendedor extends JPanel {
     private static PanelExpDinero panel_ingreso_dinero;
     private static PanelExpProductos panel_productos_expendedor;
     private static PanelExpCompra panel_producto_comprado;
+    private static PanelExpDinero panel_vuelto;
 
     public PanelExpendedor(Color color) {
         super();
@@ -29,5 +32,9 @@ public class PanelExpendedor extends JPanel {
 
     public static void updateLabelMonedasPagadas() {
         panel_ingreso_dinero.labelMonedasPagadas.setText("Monto ingresado: " + PanelPrincipal.expendedor.getPago());
+    }
+
+    public void actualizarVuelto(int vuelto) {
+        labelVuelto.setText("Vuelto: " + vuelto);
     }
 }

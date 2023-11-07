@@ -1,15 +1,15 @@
 package tarea3_GUI;
 
-import Excepciones.*;
-import Productos.*;
-import tarea3_logica.Expendedor;
+import Excepciones.DepositoOcupadoException;
+import Excepciones.NoHayProductoException;
+import Excepciones.PagoIncorrectoException;
+import Excepciones.PagoInsuficienteException;
+import Productos.ProductEnum;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 public class PanelExpProductos extends JPanel {
 
@@ -164,6 +164,13 @@ public class PanelExpProductos extends JPanel {
                         case SNICKERS -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Snickers.jpeg")));
                     }
                     updatePreciosyCantidad();
+
+
+                    int vuelto = PanelPrincipal.expendedor.calcularVuelto();
+                    PanelExpDinero.actualizarVuelto(vuelto);
+
+
+
                 }
 
 

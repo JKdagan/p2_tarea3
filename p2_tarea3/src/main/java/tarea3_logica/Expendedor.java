@@ -7,6 +7,7 @@ import Excepciones.PagoIncorrectoException;
 import Excepciones.PagoInsuficienteException;
 import Monedas.*;
 import Productos.*;
+import tarea3_GUI.PanelPrincipal;
 
 public class Expendedor {
 
@@ -96,10 +97,9 @@ public class Expendedor {
                     pago = 0;
                     salida.setProducto(producto);
                 }
-
                 else {
                     //Si hay vuelto y se devuelve de a 100.
-                    int cambio = (pago - precio_producto)/100;
+                    int cambio = (pago - precio_producto) / 100;
                     pago -= precio_producto;
                     for (int i = 0; i < cambio; i++) {
                         Moneda m_aux = new Moneda100(Moneda100.serie_100);
@@ -134,7 +134,7 @@ public class Expendedor {
     }
     public Moneda getMonedaVuelto() {
         Moneda aux = this.dep_monedasvuelto.getFromDeposito();
-        if (pago >= 100 && aux != null){
+        if (pago >= 100 && aux != null) {
             pago -= 100;
             return aux;
         }
@@ -146,6 +146,13 @@ public class Expendedor {
     public Deposito<Moneda> getDepMonedasVuelto() {
         return this.dep_monedasvuelto;
     }
-}
 
+
+
+    public int calcularVuelto() {
+        // Calcula el vuelto a partir de las monedas en dep_monedasvuelto
+        int vuelto = dep_monedasvuelto.cuantoHay() * 100; // Cada moneda de 100 suma 100 al vuelto
+        return vuelto;
+    }
+}
 

@@ -5,12 +5,21 @@ import java.awt.*;
 public class PanelExpDinero extends JPanel {
 
     public static JLabel labelMonedasPagadas;
+    public static JLabel labelVuelto;
     public PanelExpDinero(Color color) {
         super(new BorderLayout());
         this.setBackground(color);
         labelMonedasPagadas = new JLabel();
         labelMonedasPagadas.setText("Monto ingresado: 0");
         add(labelMonedasPagadas, BorderLayout.WEST);
+        labelVuelto=new JLabel();
+        labelVuelto.setText("Vuelto: 0");
+        add(labelVuelto,BorderLayout.EAST);
+    }
+
+
+    public static void actualizarVuelto(int vuelto) {
+        labelVuelto.setText("Vuelto: " + vuelto);
     }
 
 

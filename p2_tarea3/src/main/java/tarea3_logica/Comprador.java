@@ -29,7 +29,7 @@ public class Comprador {
 
         for (int j = 0; j < monedas; j++) {
             this.monedas.get(INDICE_MONEDA100).addToDeposito(new Moneda100(Moneda100.serie_100));
-            this.monedas.get(INDICE_MONEDA500).addToDeposito(new Moneda500(Moneda500.serie_500 ));
+            this.monedas.get(INDICE_MONEDA500).addToDeposito(new Moneda500(Moneda500.serie_500));
             this.monedas.get(INDICE_MONEDA1000).addToDeposito(new Moneda1000(Moneda1000.serie_1000));
             this.monedas.get(INDICE_MONEDA1500).addToDeposito(new Moneda1500(Moneda1500.serie_1500));
 
@@ -42,15 +42,19 @@ public class Comprador {
         this.productos = new ArrayList<Producto>();
         this.vuelto = 0;
     }
+
     public int getVuelto() {
         return this.vuelto;
     }
+
     public void setVuelto(int vuelto) {
         this.vuelto = vuelto;
     }
+
     public void addProducto(Producto p) {
         this.productos.add(p);
     }
+
     public void addMoneda(Moneda m) {
         if (m instanceof Moneda100) {
             this.monedas.get(INDICE_MONEDA100).addToDeposito(m);
@@ -62,6 +66,7 @@ public class Comprador {
             this.monedas.get(INDICE_MONEDA1500).addToDeposito(m);
         }
     }
+
     public Moneda getMoneda(int valor) {
         Moneda aux;
 
@@ -95,9 +100,11 @@ public class Comprador {
         }
 
     }
+
     public ArrayList<Deposito<Moneda>> getDepositoMonedas() {
         return this.monedas;
     }
+
     public int cuantasMonedas(int valorMoneda) {
         return switch (valorMoneda) {
             case 100 -> this.monedas.get(INDICE_MONEDA100).cuantoHay();
@@ -106,5 +113,10 @@ public class Comprador {
             case 1500 -> this.monedas.get(INDICE_MONEDA1500).cuantoHay();
             default -> 0;
         };
+    }
+
+
+    public void actualizarVuelto(int nuevoVuelto) {
+        this.vuelto = nuevoVuelto;
     }
 }
