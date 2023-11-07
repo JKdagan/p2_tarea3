@@ -5,13 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Productos.*;
-import tarea3_logica.*;
 import Monedas.*;
-import javax.swing.border.EmptyBorder;
+import Productos.Producto;
 
 public class PanelExpCompra extends JPanel {
-    private static JLabel labelImagen;
+    public static JLabel labelImagen;
     private BotonRetirarProducto boton_retirar_producto;
     private BotonRetirarVuelto boton_retirar_vuelto;
     private JPanel panel;
