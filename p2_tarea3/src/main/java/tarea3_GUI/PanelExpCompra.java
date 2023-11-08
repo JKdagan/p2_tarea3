@@ -20,17 +20,22 @@ public class PanelExpCompra extends JPanel {
         this.setBackground(color);
 
         labelImagen = new JLabel();
-        add(labelImagen);
+
 
         boton_retirar_producto = new BotonRetirarProducto("Retirar producto");
         boton_retirar_vuelto = new BotonRetirarVuelto("Retirar vuelto de a 100");
         boton_rellenar=new BotonRellenarDepositos("Rellenar depositos");
+        JPanel panelbotonesRetirar=new JPanel();
+        panelbotonesRetirar.add(boton_retirar_producto);
+        panelbotonesRetirar.add(boton_retirar_vuelto);
+
+
         panel = new JPanel();
-        panel.add(boton_retirar_producto,BorderLayout.NORTH);
-        panel.add(boton_retirar_vuelto,BorderLayout.NORTH);
+        panel.setLayout(new BorderLayout());
+        panel.add(panelbotonesRetirar,BorderLayout.NORTH);
         panel.add(boton_rellenar,BorderLayout.SOUTH);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-        panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        panel.add(labelImagen,BorderLayout.CENTER);
+
         add(panel);
 
     }
@@ -55,6 +60,7 @@ public class PanelExpCompra extends JPanel {
         int x = (width - rectWidth) / 2;
         int y = (height - rectHeight) / 2;
         g.fillRect(x, y, rectWidth, rectHeight);
+        labelImagen.setBounds(x-65,y-35,280,140);
     }
     private class BotonRetirarProducto extends JButton {
         public BotonRetirarProducto(String texto) {
