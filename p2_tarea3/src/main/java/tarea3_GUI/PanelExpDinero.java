@@ -35,8 +35,8 @@ public class PanelExpDinero extends JPanel {
         add(labelsPanel, BorderLayout.CENTER);
     }
 
-    Color color1=new Color( 183,146 ,224 );
-    Color color2=new Color(203 , 123, 224);
+    Color color1=new Color(216, 246, 18);
+    Color color2=new Color(35, 243, 70);
     public static void actualizarVuelto(int vuelto) {
         labelVuelto.setText("Vuelto: " + vuelto);
     }
