@@ -115,6 +115,13 @@ public class Comprador {
         };
     }
 
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+    public boolean isEmpty() {
+        return productos.isEmpty();
+    }
+
 
     public void actualizarVuelto(int nuevoVuelto) {
         this.vuelto = nuevoVuelto;
