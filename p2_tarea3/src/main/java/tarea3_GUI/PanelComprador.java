@@ -1,6 +1,7 @@
 package tarea3_GUI;
 
 import Monedas.*;
+import Productos.Producto;
 import tarea3_logica.*;
 
 import javax.swing.*;
@@ -8,6 +9,8 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class PanelComprador extends JPanel {
     private ImageIcon imagenComprador;
@@ -25,6 +28,8 @@ public class PanelComprador extends JPanel {
     private BotonesPagoExpendedor boton_pagar500;
     private BotonesPagoExpendedor boton_pagar1000;
 
+    private JButton botonAbrirVentana;
+
     public PanelComprador(Color color) {
         super();
         this.labelMonedasPagadas = labelMonedasPagadas;
@@ -41,6 +46,16 @@ public class PanelComprador extends JPanel {
         this.mostrarMonedasComprador();
 
     }
+
+    public class CustomOptionPane extends JOptionPane {
+        public static void showCustomDialog(String message) {
+            JOptionPane inventario = new JOptionPane(message, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+            JDialog dialog = inventario.createDialog("Inventario del comprador");
+            dialog.setVisible(true);
+        }
+    }
+
+
 
 
     public static void updateLabelMonedasText() {
@@ -70,7 +85,37 @@ public class PanelComprador extends JPanel {
         botones_inferior.add(boton_add500);
         botones_inferior.add(boton_add1000);
         add(botones_inferior, BorderLayout.SOUTH);
+
+        //boton del inventario
+        botonAbrirVentana = new JButton("Inventario");
+        botonAbrirVentana.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mostrarProductosComprador();
+            }
+        });
+
+        botones_superior.add(botonAbrirVentana);
+
     }
+
+    private void mostrarProductosComprador() {
+        if (PanelPrincipal.comprador != null) {
+            ArrayList<Producto> productos = PanelPrincipal.comprador.getProductos();
+            if (!productos.isEmpty()) {
+                StringBuilder mensaje = new StringBuilder("Inventario:\n");
+                for (Producto producto : productos) {
+                    mensaje.append(producto.getNombre()).append("\n");
+                }
+                JOptionPane.showMessageDialog(this, mensaje.toString(), "Productos del Comprador", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "El comprador no ha comprado nada aún.", "Productos del Comprador", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+
+
+
     private void mostrarMonedasComprador() {
         labelMonedas100 = new JLabel("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
         labelMonedas500 = new JLabel("Monedas de 500: " + PanelPrincipal.comprador.cuantasMonedas(500));
