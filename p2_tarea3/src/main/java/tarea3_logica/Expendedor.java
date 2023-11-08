@@ -1,16 +1,17 @@
 package tarea3_logica;
 import java.util.ArrayList;
 
-import Excepciones.DepositoOcupadoException;
-import Excepciones.NoHayProductoException;
-import Excepciones.PagoIncorrectoException;
-import Excepciones.PagoInsuficienteException;
+import Excepciones.*;
 import Monedas.*;
 import Productos.*;
-import tarea3_GUI.PanelPrincipal;
 
+/**
+ * Clase Expendedor
+ */
 public class Expendedor {
-
+    /**
+     * Atributos de la clase Expendedor, Depositos internos de productos y monedas
+     */
     public Deposito<Bebida> dep_cocacola;
     public Deposito<Bebida> dep_fanta;
     public Deposito<Bebida> dep_sprite;
@@ -19,13 +20,22 @@ public class Expendedor {
     private Deposito<Moneda> dep_monedaspagadas;
     private Deposito<Moneda> dep_monedasvuelto;
     private DepositoSalida salida;
-
+    /**
+     * @param pago: int, monto total de monedas ingresadas por el usuario
+     * @param aux_serie: int, auxiliar para generar el numero de serie de las monedas
+     * @param cualProducto: ProductEnum, enum que contiene los productos disponibles
+     */
     public int pago;
     public static int aux_serie = 100;
     private ProductEnum cualProducto;
 
+    //* flag para saber si el deposito de salida esta ocupado
     public static boolean flag_deposito_ocupado;
 
+    /**
+     * Metodo para llenar los depositos con productos
+     * @param cantidadInicial cuantos productos
+     */
     public void llenarDepositos(int cantidadInicial) {
         for (int i = 0; i < cantidadInicial; i++) {
             //aux para denotar que son temporales solo para llenar los depositos
@@ -56,6 +66,14 @@ public class Expendedor {
         llenarDepositos(cantidadInicial);
         this.pago = 0;
     }
+
+    /**
+     * Metodo para comprar un producto
+     * @throws NoHayProductoException no quedan productos
+     * @throws PagoIncorrectoException moneda nula
+     * @throws PagoInsuficienteException no alcanza el pago
+     * @throws DepositoOcupadoException no se ha sacado el producto comprado anteriormente
+     */
     public void comprarProducto() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
 
         if (salida.getProducto() != null) {
@@ -115,6 +133,11 @@ public class Expendedor {
         }
 
     }
+
+    /**
+     * Metodo para agregar monedas al pago
+     * @param m moneda ingresada
+     */
     public void addMonedaPago(Moneda m) {
         if (m == null) pago += 0;
         else {
@@ -122,28 +145,62 @@ public class Expendedor {
             pago += m.getValor();
         }
     }
+
+    /**
+     * Metodo para elegir el producto a comprar
+     * @param cualProducto enum del producto
+     */
     public void elegirProducto(ProductEnum cualProducto) {
         this.cualProducto = cualProducto;
     }
+
+    /**
+     * Getter del pago
+     * @return pago: int de monedas ingresadas
+     */
     public int getPago() {
         return this.pago;
     }
+
+    /**
+     * Getter del producto comprado desde el deposito de salida
+     * @return producto
+     */
     public Producto getProducto() {
         this.flag_deposito_ocupado = false;
         return this.salida.getProducto();
     }
+
+    /**
+     * Getter de la moneda de vuelto
+     * @return moneda
+     */
     public Moneda getMonedaVuelto() {
         Moneda aux = this.dep_monedasvuelto.getFromDeposito();
         if (aux == null) return null;
         else return aux;
     }
+
+    /**
+     * Getter del deposito de monedas pagadas
+     * @return deposito monedas
+     */
     public Deposito<Moneda> getDepMonedasPagadas() {
         return this.dep_monedaspagadas;
     }
+
+    /**
+     * Getter del deposito de monedas de vuelto
+     * @return deposito monedas
+     */
     public Deposito<Moneda> getDepMonedasVuelto() {
         return this.dep_monedasvuelto;
     }
 
+    /**
+     * Calcula el vuelto total
+     * @return vuelto: int
+     */
     public int calcularVuelto() {
         // Calcula el vuelto a partir de las monedas en dep_monedasvuelto
         int vuelto = dep_monedasvuelto.cuantoHay() * 100; // Cada moneda de 100 suma 100 al vuelto
