@@ -13,6 +13,7 @@ public class PanelExpCompra extends JPanel {
     private BotonRetirarProducto boton_retirar_producto;
     private BotonRetirarVuelto boton_retirar_vuelto;
     private JPanel panel;
+    private BotonRellenarDepositos boton_rellenar;
 
     public PanelExpCompra(Color color) {
         super();
@@ -23,9 +24,11 @@ public class PanelExpCompra extends JPanel {
 
         boton_retirar_producto = new BotonRetirarProducto("Retirar producto");
         boton_retirar_vuelto = new BotonRetirarVuelto("Retirar vuelto de a 100");
+        boton_rellenar=new BotonRellenarDepositos("Rellenar depositos");
         panel = new JPanel();
-        panel.add(boton_retirar_producto);
-        panel.add(boton_retirar_vuelto);
+        panel.add(boton_retirar_producto,BorderLayout.NORTH);
+        panel.add(boton_retirar_vuelto,BorderLayout.NORTH);
+        panel.add(boton_rellenar,BorderLayout.SOUTH);
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         add(panel);
@@ -88,6 +91,17 @@ public class PanelExpCompra extends JPanel {
                     PanelComprador.updateLabelMonedasText();
                 }
             }
+        }
+    }
+    private class BotonRellenarDepositos extends JButton {
+        public BotonRellenarDepositos(String texto) {
+            super(texto);
+            this.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    PanelPrincipal.expendedor.llenarDepositos(5);
+                    PanelExpProductos.updatePreciosyCantidad();
+                }
+            });
         }
     }
 }
