@@ -12,9 +12,9 @@ public class PanelExpDinero extends JPanel {
 
         labelMonedasPagadas = new JLabel();
         labelMonedasPagadas.setText("Monto ingresado: 0");
-        add(labelMonedasPagadas, BorderLayout.WEST);
         labelVuelto=new JLabel();
         labelVuelto.setText("Vuelto: 0");
+        add(labelMonedasPagadas, BorderLayout.WEST);
         add(labelVuelto,BorderLayout.EAST);
     }
 

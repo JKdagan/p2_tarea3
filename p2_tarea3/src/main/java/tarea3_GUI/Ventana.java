@@ -4,19 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Ventana extends JFrame {
-    public Ventana(String titulo, int width, int height, boolean visible){
 
+    PanelPrincipal panel_principal;
+    public Ventana(){
         super();
+        this.setTitle("Tarea3");
         this.setLayout(new BorderLayout());
-        this.setTitle(titulo);
-
-        PanelPrincipal panel= new PanelPrincipal(Color.white);
-
+        this.setSize(1500, 800);
         this.setResizable(false);
-        this.setVisible(visible);
-        this.setSize(width, height);
+        this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+        panel_principal = new PanelPrincipal(Color.white);
+        this.add(panel_principal);
     }
 }

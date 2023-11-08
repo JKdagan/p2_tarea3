@@ -1,11 +1,7 @@
 package tarea3_GUI;
 
-import Excepciones.DepositoOcupadoException;
-import Excepciones.NoHayProductoException;
-import Excepciones.PagoIncorrectoException;
-import Excepciones.PagoInsuficienteException;
-import Productos.ProductEnum;
-
+import Excepciones.*;
+import Productos.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

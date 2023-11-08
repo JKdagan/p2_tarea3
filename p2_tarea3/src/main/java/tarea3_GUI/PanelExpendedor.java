@@ -3,16 +3,18 @@ package tarea3_GUI;
 import tarea3_logica.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 import static tarea3_GUI.PanelExpDinero.labelVuelto;
-
 
 public class PanelExpendedor extends JPanel {
     private static PanelExpDinero panel_ingreso_dinero;
     private static PanelExpProductos panel_productos_expendedor;
     private static PanelExpCompra panel_producto_comprado;
     private static PanelExpDinero panel_vuelto;
+
+    private Border borde = BorderFactory.createLineBorder(Color.GREEN, 6);
 
     public PanelExpendedor(Color color) {
         super();
@@ -24,6 +26,7 @@ public class PanelExpendedor extends JPanel {
         this.add(panel_productos_expendedor);
         this.add(panel_producto_comprado);
 
+        this.setBorder(borde);
         this.setBackground(color);
         this.setSize(100,100);
         this.setLayout(new GridLayout(3,1));
