@@ -20,7 +20,6 @@ public class PanelExpProductos extends JPanel {
     private JLabel labelFanta;
     private JLabel labelSuper8;
     private JLabel labelSnickers;
-
     private JPanel botonesPanel;
     private JPanel botones_centradosPanel;
     private JPanel frasesPanel;
