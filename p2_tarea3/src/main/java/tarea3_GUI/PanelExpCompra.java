@@ -14,12 +14,14 @@ public class PanelExpCompra extends JPanel {
     private BotonRetirarVuelto boton_retirar_vuelto;
     private JPanel panel;
     private BotonRellenarDepositos boton_rellenar;
+    private static ImageIcon imagenActual;
 
     public PanelExpCompra(Color color) {
         super();
         this.setBackground(color);
 
-        labelImagen = new JLabel();
+        imagenActual = new ImageIcon(getClass().getResource("/blanco.jpg")); // Inicialmente muestra blanco.jpg
+        labelImagen = new JLabel(imagenActual);
 
 
         boton_retirar_producto = new BotonRetirarProducto("Retirar producto");
@@ -41,10 +43,14 @@ public class PanelExpCompra extends JPanel {
     public static void actualizarImagen(ImageIcon imagen) {
         if (imagen != null) {
             Image img = imagen.getImage();
-            Image newImg = img.getScaledInstance(280, 130, Image.SCALE_SMOOTH);
-            imagen = new ImageIcon(newImg);
+            int ancho = labelImagen.getWidth();
+            int alto = labelImagen.getHeight();
+            Image newImg = img.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+            imagenActual = new ImageIcon(newImg);
+        } else {
+            imagenActual = new ImageIcon(PanelExpCompra.class.getResource("/blanco.jpg"));
         }
-        labelImagen.setIcon(imagen);
+        labelImagen.setIcon(imagenActual);
     }
 
     private class BotonRetirarProducto extends JButton {
@@ -58,10 +64,7 @@ public class PanelExpCompra extends JPanel {
                 Producto producto = PanelPrincipal.expendedor.getProducto();
                 if (producto != null) {
                     PanelPrincipal.comprador.addProducto(producto);
-                    actualizarImagen(null);
-                }
-                else {
-                    actualizarImagen(null);
+                    actualizarImagen(new ImageIcon(getClass().getResource("/blanco.jpg")));
                 }
             }
         }
