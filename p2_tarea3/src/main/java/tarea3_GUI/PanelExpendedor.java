@@ -12,13 +12,12 @@ public class PanelExpendedor extends JPanel {
     private static PanelExpDinero panel_ingreso_dinero;
     private static PanelExpProductos panel_productos_expendedor;
     private static PanelExpCompra panel_producto_comprado;
-    private static PanelExpDinero panel_vuelto;
-
+    Color color1= new Color(224,99,180);
     public PanelExpendedor(Color color) {
         super();
         this.panel_ingreso_dinero = new PanelExpDinero(Color.PINK);
         this.panel_productos_expendedor = new PanelExpProductos(Color.magenta);
-        this.panel_producto_comprado = new PanelExpCompra(Color.green);
+        this.panel_producto_comprado = new PanelExpCompra(color1);
 
         this.add(panel_ingreso_dinero);
         this.add(panel_productos_expendedor);
