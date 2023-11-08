@@ -152,9 +152,9 @@ public class PanelComprador extends JPanel {
         add(monedas_panel, BorderLayout.WEST);
     }
     private void mostrarFotoComprador() {
-        imagenComprador = new ImageIcon(getClass().getResource("/Comprador.jpeg"));
+        imagenComprador = new ImageIcon(getClass().getResource("/Comprador.jpg"));
         if (imagenComprador != null) {
-            imagenComprador.setImage(imagenComprador.getImage().getScaledInstance(200, 500, Image.SCALE_DEFAULT));
+            imagenComprador.setImage(imagenComprador.getImage().getScaledInstance(300, 690, Image.SCALE_DEFAULT));
             JLabel label = new JLabel(imagenComprador);
             add(label, BorderLayout.CENTER);
         }

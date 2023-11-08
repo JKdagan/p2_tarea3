@@ -34,8 +34,8 @@ public class PanelExpDinero extends JPanel {
         int rectWidth = 200; // Ancho de los rectángulos
         int rectHeight = 70; // Alto de los rectángulos
         int y=80;
-
         int x2= 460;
+        g.setColor(Color.gray);
         g.fillRect(x2, y, rectWidth, rectHeight+90);
 
     }
