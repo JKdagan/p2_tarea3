@@ -29,6 +29,7 @@ public class PanelComprador extends JPanel {
     private BotonesPagoExpendedor boton_pagar1000;
 
     private JButton botonAbrirVentana;
+    private BotonBolsillo botonBolsillo;
 
     public PanelComprador(Color color) {
         super();
@@ -59,10 +60,27 @@ public class PanelComprador extends JPanel {
 
 
     public static void updateLabelMonedasText() {
-        labelMonedas100.setText("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
-        labelMonedas500.setText("Monedas de 500: " + PanelPrincipal.comprador.cuantasMonedas(500));
-        labelMonedas1000.setText("Monedas de 1000: " + PanelPrincipal.comprador.cuantasMonedas(1000));
+        labelMonedas100.setText("<html><font color='blue'>Monedas de 100:</font> " + PanelPrincipal.comprador.cuantasMonedas(100) + "</html>");
+        labelMonedas500.setText("<html><font color='red'>Monedas de 500:</font> " + PanelPrincipal.comprador.cuantasMonedas(500) + "</html>");
+        labelMonedas1000.setText("<html><font color='green'>Monedas de 1000:</font> " + PanelPrincipal.comprador.cuantasMonedas(1000) + "</html>");
     }
+
+    private class BotonBolsillo extends JButton {
+        public BotonBolsillo(String texto) {
+            super(texto);
+            this.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    VentanaBolsillo ventana = new VentanaBolsillo();
+                    ventana.setVisible(true);
+                }
+            });
+        }
+    }
+
+
+
+
+
     private void inicializarBotones() {
         //botones para pagar
         botones_superior = new JPanel();
@@ -93,8 +111,12 @@ public class PanelComprador extends JPanel {
                 mostrarProductosComprador();
             }
         });
-
         botones_superior.add(botonAbrirVentana);
+
+        botonBolsillo = new BotonBolsillo("Bolsillo");
+        botones_superior.add(botonBolsillo);
+
+
 
     }
 
@@ -112,6 +134,8 @@ public class PanelComprador extends JPanel {
             }
         }
     }
+
+
 
 
 
