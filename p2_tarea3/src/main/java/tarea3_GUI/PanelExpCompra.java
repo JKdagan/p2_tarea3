@@ -82,7 +82,9 @@ public class PanelExpCompra extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Moneda aux = PanelPrincipal.expendedor.getMonedaVuelto();
                 if (aux != null) {
+                    PanelExpDinero.actualizarVuelto(PanelPrincipal.expendedor.calcularVuelto());
                     PanelPrincipal.comprador.addMoneda(aux);
+                    PanelExpendedor.updateLabelMonedasPagadas();
                     PanelComprador.updateLabelMonedasText();
                 }
             }

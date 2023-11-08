@@ -39,7 +39,6 @@ public class PanelExpProductos extends JPanel {
     private static JLabel fraseSuper8;
     private static JLabel fraseSnickers;
 
-
     public PanelExpProductos(Color color) {
         this.setBackground(color);
         this.setLayout(new BorderLayout());
@@ -139,53 +138,50 @@ public class PanelExpProductos extends JPanel {
     }
     private class BotonesProductos extends JButton {
 
-    ProductEnum producto;
-    public BotonesProductos(String nombre, ProductEnum cualProducto) {
-        super(nombre);
-        this.producto = cualProducto;
-        this.addActionListener(new EscuchadorBoton());
-    }
-    private class EscuchadorBoton implements ActionListener {
+        ProductEnum producto;
 
-        public void actionPerformed(ActionEvent e) {
-            try {
-                PanelPrincipal.expendedor.elegirProducto(producto);
-                PanelPrincipal.expendedor.comprarProducto();
-                PanelExpendedor.updateLabelMonedasPagadas();
+        public BotonesProductos(String nombre, ProductEnum cualProducto) {
+            super(nombre);
+            producto = cualProducto;
+            this.addActionListener(new EscuchadorBoton());
+        }
 
-                if (PanelPrincipal.expendedor.flag_deposito_ocupado == false) {
-                    //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
+        private class EscuchadorBoton implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    PanelPrincipal.expendedor.elegirProducto(producto);
+                    PanelPrincipal.expendedor.comprarProducto();
+                    PanelExpendedor.updateLabelMonedasPagadas();
 
-                    switch(producto){
-                        case COCA_COLA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/CocaCola.jpeg")));
-                        case FANTA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Fanta.jpeg")));
-                        case SPRITE -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Sprite.jpeg")));
-                        case SUPER8 -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Super8.jpeg")));
-                        case SNICKERS -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Snickers.jpeg")));
+                    if (PanelPrincipal.expendedor.flag_deposito_ocupado == false) {
+                        //como la compra fue exitosa que se vea la imagen en PanelExpCompra, luego hay que acomodar dimensiones y tamaño para que se vea dentro del rectangulo
+
+                        switch (producto) {
+                            case COCA_COLA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/CocaCola.jpeg")));
+                            case FANTA -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Fanta.jpeg")));
+                            case SPRITE -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Sprite.jpeg")));
+                            case SUPER8 -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Super8.jpeg")));
+                            case SNICKERS -> PanelExpCompra.actualizarImagen(new ImageIcon(getClass().getResource("/Snickers.jpeg")));
+                        }
+                        updatePreciosyCantidad();
+
+                        int vuelto = PanelPrincipal.expendedor.calcularVuelto();
+                        PanelExpDinero.actualizarVuelto(vuelto);
+
                     }
-                    updatePreciosyCantidad();
 
-
-                    int vuelto = PanelPrincipal.expendedor.calcularVuelto();
-                    PanelExpDinero.actualizarVuelto(vuelto);
-
-
-
+                } catch (NoHayProductoException ex) {
+                    JOptionPane.showMessageDialog(null, "No hay suficientes productos disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (PagoIncorrectoException ex) {
+                    JOptionPane.showMessageDialog(null, "El pago ingresado es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (PagoInsuficienteException ex) {
+                    JOptionPane.showMessageDialog(null, "El pago es insuficiente", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (DepositoOcupadoException ex) {
+                    JOptionPane.showMessageDialog(null, "El depósito de salida está ocupado, retire el producto para seguir comprando", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-
-            }
-            catch (NoHayProductoException ex) {
-                JOptionPane.showMessageDialog(null, "No hay suficientes productos disponibles", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (PagoIncorrectoException ex) {
-                JOptionPane.showMessageDialog(null, "El pago ingresado es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (PagoInsuficienteException ex) {
-                JOptionPane.showMessageDialog(null, "El pago es insuficiente", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (DepositoOcupadoException ex) {
-                JOptionPane.showMessageDialog(null, "El depósito de salida está ocupado, retire el producto para seguir comprando", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
 
     }
 }
+
