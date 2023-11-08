@@ -66,6 +66,7 @@ public class PanelComprador extends JPanel {
         labelMonedas500.setText("<html><font color='red'>Monedas de 500:</font> " + PanelPrincipal.comprador.cuantasMonedas(500) + "</html>");
         labelMonedas1000.setText("<html><font color='green'>Monedas de 1000:</font> " + PanelPrincipal.comprador.cuantasMonedas(1000) + "</html>");
     }
+
     //Boton con escuchador, hace que se abra la VentanaBolsillo
     private class BotonBolsillo extends JButton {
         public BotonBolsillo(String texto) {
@@ -116,6 +117,7 @@ public class PanelComprador extends JPanel {
         botonBolsillo = new BotonBolsillo("Bolsillo");
         botones_superior.add(botonBolsillo);
     }
+
     //Metodo que los Productos que posee el Comprador en su ArrayList de Productos; si no se ha realizado ninguna compra aún dirá que no se ha comprado nada, y cada vez que se compre algo se añadira el nombre del Producto a la Ventana acumulandose hacia abajo
     private void mostrarProductosComprador() {
         if (PanelPrincipal.comprador != null) {
@@ -123,7 +125,7 @@ public class PanelComprador extends JPanel {
             if (!productos.isEmpty()) {
                 StringBuilder mensaje = new StringBuilder("Inventario:\n");
                 for (Producto producto : productos) {
-                    mensaje.append(producto.getNombre()).append("\n");
+                    mensaje.append(producto.getNombre() + ":" + producto.getSerie()).append("\n");
                 }
                 JOptionPane.showMessageDialog(this, mensaje.toString(), "Productos del Comprador", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -131,6 +133,7 @@ public class PanelComprador extends JPanel {
             }
         }
     }
+
     //Metodo que muestra las Monedas que posee el Comprador en ese momento
     private void mostrarMonedasComprador() {
         labelMonedas100 = new JLabel("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
@@ -143,6 +146,7 @@ public class PanelComprador extends JPanel {
         monedas_panel.add(labelMonedas1000);
         add(monedas_panel, BorderLayout.WEST);
     }
+
     //Metodo que muestra simplemente una imagen de una persona simulando un cliente
     private void mostrarFotoComprador() {
         imagenComprador = new ImageIcon(getClass().getResource("/Comprador.jpg"));
@@ -152,6 +156,7 @@ public class PanelComprador extends JPanel {
             add(label, BorderLayout.CENTER);
         }
     }
+
     //Botones con escuchadores que interactuan con el Comprador
     private class BotonesMonedaComprador extends JButton {
         public Moneda aux_moneda;
@@ -187,6 +192,7 @@ public class PanelComprador extends JPanel {
             }
         }
     }
+
     //Botones con escuchadores que interactuan con el Expendedor
     private class BotonesPagoExpendedor extends JButton {
         public int valor_moneda;
