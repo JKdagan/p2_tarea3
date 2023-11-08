@@ -26,7 +26,7 @@ public class Expendedor {
 
     public static boolean flag_deposito_ocupado;
 
-    private void llenarDepositos(int cantidadInicial) {
+    public void llenarDepositos(int cantidadInicial) {
         for (int i = 0; i < cantidadInicial; i++) {
             //aux para denotar que son temporales solo para llenar los depositos
             Bebida aux_coca = new CocaCola(i);
