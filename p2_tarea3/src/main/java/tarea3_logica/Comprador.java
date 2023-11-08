@@ -8,25 +8,34 @@ import java.util.ArrayList;
 //* Comprador/Cliente que comprará algún Producto
 public class Comprador {
 
+    // Array de depositos de monedas para guardar de 100,500,1000
     private ArrayList<Deposito<Moneda>> monedas;
+    //Array de productos comprador
     private ArrayList<Producto> productos;
-    private int vuelto;
 
+    //Constantes para representar las monedas en metodos
     public final int INDICE_MONEDA100 = 0;
     public final int INDICE_MONEDA500 = 1;
     public final int INDICE_MONEDA1000 = 2;
     public final int INDICE_MONEDA1500 = 3;
 
+    /** Constructor de Comprador
+     *
+     * @param monedas cuantas monedas se le daran al comprador
+     */
     public Comprador(int monedas) {
         /* monedas[0] = monedas100
          * monedas[1] = monedas500
          * monedas[2] = monedas1000
          * monedas[3] = monedas1500 */
 
+        //Inicializa el deposito de todas las monedas
         this.monedas = new ArrayList<Deposito<Moneda>>(5);
+        //Crea los depositos individuales de monedas para el tipo de moneda
         for (int i = 0; i < 4; i++)
             this.monedas.add(new Deposito<Moneda>());
 
+        //Crea las monedas para darselas al comprador
         for (int j = 0; j < monedas; j++) {
             this.monedas.get(INDICE_MONEDA100).addToDeposito(new Moneda100(Moneda100.serie_100));
             this.monedas.get(INDICE_MONEDA500).addToDeposito(new Moneda500(Moneda500.serie_500));
@@ -39,22 +48,22 @@ public class Comprador {
             Moneda1500.serie_1500++;
         }
 
+        //Inicializa el deposito de productos comprados
         this.productos = new ArrayList<Producto>();
-        this.vuelto = 0;
     }
 
-    public int getVuelto() {
-        return this.vuelto;
-    }
-
-    public void setVuelto(int vuelto) {
-        this.vuelto = vuelto;
-    }
-
+    /** Agrega el producto p al deposito interno
+     *
+     * @param p producto
+     */
     public void addProducto(Producto p) {
         this.productos.add(p);
     }
 
+    /** Agrega la moneda m al deposito interno
+     *
+     * @param m moneda
+     */
     public void addMoneda(Moneda m) {
         if (m instanceof Moneda100) {
             this.monedas.get(INDICE_MONEDA100).addToDeposito(m);
@@ -67,6 +76,11 @@ public class Comprador {
         }
     }
 
+    /** Le quita una moneda valor del deposito correspondiente
+     *
+     * @param valor valormonedas
+     * @return moneda
+     */
     public Moneda getMoneda(int valor) {
         Moneda aux;
 
@@ -101,10 +115,19 @@ public class Comprador {
 
     }
 
+    /**
+     *
+     * @return el deposito interno de monedas
+     */
     public ArrayList<Deposito<Moneda>> getDepositoMonedas() {
         return this.monedas;
     }
 
+    /**
+     *
+     * @param valorMoneda valor de la moneda
+     * @return la cantidad de monedas en el deposito
+     */
     public int cuantasMonedas(int valorMoneda) {
         return switch (valorMoneda) {
             case 100 -> this.monedas.get(INDICE_MONEDA100).cuantoHay();
@@ -115,15 +138,20 @@ public class Comprador {
         };
     }
 
+    /**
+     *
+     * @return el deposito interno de productos
+     */
     public ArrayList<Producto> getProductos() {
         return productos;
     }
+
+    /**
+     *
+     * @return si el deposito de productos esta vacio o no
+     */
     public boolean isEmpty() {
         return productos.isEmpty();
     }
 
-
-    public void actualizarVuelto(int nuevoVuelto) {
-        this.vuelto = nuevoVuelto;
-    }
 }
