@@ -146,7 +146,7 @@ public class Expendedor {
 
     public int calcularVuelto() {
         // Calcula el vuelto a partir de las monedas en dep_monedasvuelto
-        int vuelto = dep_monedasvuelto.cuantoHay() * 100; // Cada moneda de 100 suma 100 al vuelto
+        int vuelto = dep_monedasvuelto.cuantoHay() * 100; // Como en el deposito de monedas solo hay Moneda100, cada una suma 100 al vuelto
         return vuelto;
     }
 }
