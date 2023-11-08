@@ -94,6 +94,7 @@ public class Expendedor {
 
                 if (pago == precio_producto) {
                     //No hay vuelto
+                    pago = 0;
                     salida.setProducto(producto);
                 }
                 else {
