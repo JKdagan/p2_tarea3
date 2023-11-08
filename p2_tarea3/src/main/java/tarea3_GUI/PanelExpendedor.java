@@ -34,7 +34,7 @@ public class PanelExpendedor extends JPanel {
         panel_ingreso_dinero.labelMonedasPagadas.setText("Monto ingresado: " + PanelPrincipal.expendedor.getPago());
     }
 
-    public void actualizarVuelto(int vuelto) {
+    public static void actualizarVuelto(int vuelto) {
         labelVuelto.setText("Vuelto: " + vuelto);
     }
 }

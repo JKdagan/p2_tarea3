@@ -81,7 +81,6 @@ public class PanelExpCompra extends JPanel {
         private class EscuchadorBoton implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 Moneda aux = PanelPrincipal.expendedor.getMonedaVuelto();
-                PanelExpendedor.updateLabelMonedasPagadas();
                 if (aux != null) {
                     PanelPrincipal.comprador.addMoneda(aux);
                     PanelComprador.updateLabelMonedasText();
