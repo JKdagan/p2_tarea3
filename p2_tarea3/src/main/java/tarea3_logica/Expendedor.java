@@ -94,13 +94,12 @@ public class Expendedor {
 
                 if (pago == precio_producto) {
                     //No hay vuelto
-                    pago = 0;
                     salida.setProducto(producto);
                 }
                 else {
                     //Si hay vuelto y se devuelve de a 100.
                     int cambio = (pago - precio_producto) / 100;
-                    pago -= precio_producto;
+                    pago = 0;
                     for (int i = 0; i < cambio; i++) {
                         Moneda m_aux = new Moneda100(Moneda100.serie_100);
                         Moneda100.serie_100++;
@@ -134,11 +133,8 @@ public class Expendedor {
     }
     public Moneda getMonedaVuelto() {
         Moneda aux = this.dep_monedasvuelto.getFromDeposito();
-        if (pago >= 100 && aux != null) {
-            pago -= 100;
-            return aux;
-        }
-        else return null;
+        if (aux == null) return null;
+        else return aux;
     }
     public Deposito<Moneda> getDepMonedasPagadas() {
         return this.dep_monedaspagadas;
@@ -146,8 +142,6 @@ public class Expendedor {
     public Deposito<Moneda> getDepMonedasVuelto() {
         return this.dep_monedasvuelto;
     }
-
-
 
     public int calcularVuelto() {
         // Calcula el vuelto a partir de las monedas en dep_monedasvuelto

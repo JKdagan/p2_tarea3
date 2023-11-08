@@ -165,14 +165,10 @@ public class PanelExpProductos extends JPanel {
                     }
                     updatePreciosyCantidad();
 
-
                     int vuelto = PanelPrincipal.expendedor.calcularVuelto();
                     PanelExpDinero.actualizarVuelto(vuelto);
 
-
-
                 }
-
 
             }
             catch (NoHayProductoException ex) {

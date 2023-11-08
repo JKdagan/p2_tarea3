@@ -42,6 +42,7 @@ public class PanelComprador extends JPanel {
 
     }
 
+
     public static void updateLabelMonedasText() {
         labelMonedas100.setText("Monedas de 100: " + PanelPrincipal.comprador.cuantasMonedas(100));
         labelMonedas500.setText("Monedas de 500: " + PanelPrincipal.comprador.cuantasMonedas(500));
