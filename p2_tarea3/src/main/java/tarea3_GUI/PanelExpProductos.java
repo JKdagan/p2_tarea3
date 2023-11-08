@@ -29,11 +29,11 @@ public class PanelExpProductos extends JPanel {
     private BotonesProductos boton_Fanta;
     private BotonesProductos boton_Super8;
     private BotonesProductos boton_Snickers;
-    private JLabel fraseCocaCola;
-    private JLabel fraseSprite;
-    private JLabel fraseFanta;
-    private JLabel fraseSuper8;
-    private JLabel fraseSnickers;
+    private static JLabel fraseCocaCola;
+    private static JLabel fraseSprite;
+    private static JLabel fraseFanta;
+    private static JLabel fraseSuper8;
+    private static JLabel fraseSnickers;
 
     public PanelExpProductos(Color color) {
         this.setBackground(color);
@@ -125,7 +125,7 @@ public class PanelExpProductos extends JPanel {
         frasesPanel.add(fraseSnickers);
         add(frasesPanel, BorderLayout.CENTER);
     }
-    private void updatePreciosyCantidad() {
+    static void updatePreciosyCantidad() {
         fraseCocaCola.setText("<html>Precio: $1200<br>Disponibles:" + PanelPrincipal.expendedor.dep_cocacola.cuantoHay() + "</html>");
         fraseSprite.setText("<html>Precio:$1200<br>Disponibles:"+ PanelPrincipal.expendedor.dep_sprite.cuantoHay() + "</html>");
         fraseFanta.setText("<html>Precio:$1000<br>Disponibles:"+ PanelPrincipal.expendedor.dep_fanta.cuantoHay() + "</html>");

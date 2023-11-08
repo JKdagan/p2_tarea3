@@ -13,21 +13,29 @@ public class PanelExpCompra extends JPanel {
     private BotonRetirarProducto boton_retirar_producto;
     private BotonRetirarVuelto boton_retirar_vuelto;
     private JPanel panel;
+    private BotonRellenarDepositos boton_rellenar;
 
     public PanelExpCompra(Color color) {
         super();
         this.setBackground(color);
 
         labelImagen = new JLabel();
-        add(labelImagen);
+
 
         boton_retirar_producto = new BotonRetirarProducto("Retirar producto");
         boton_retirar_vuelto = new BotonRetirarVuelto("Retirar vuelto de a 100");
+        boton_rellenar=new BotonRellenarDepositos("Rellenar depositos");
+        JPanel panelbotonesRetirar=new JPanel();
+        panelbotonesRetirar.add(boton_retirar_producto);
+        panelbotonesRetirar.add(boton_retirar_vuelto);
+
+
         panel = new JPanel();
-        panel.add(boton_retirar_producto);
-        panel.add(boton_retirar_vuelto);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-        panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        panel.setLayout(new BorderLayout());
+        panel.add(panelbotonesRetirar,BorderLayout.NORTH);
+        panel.add(boton_rellenar,BorderLayout.SOUTH);
+        panel.add(labelImagen,BorderLayout.CENTER);
+
         add(panel);
 
     }
@@ -52,6 +60,7 @@ public class PanelExpCompra extends JPanel {
         int x = (width - rectWidth) / 2;
         int y = (height - rectHeight) / 2;
         g.fillRect(x, y, rectWidth, rectHeight);
+        labelImagen.setBounds(x-65,y-35,280,140);
     }
     private class BotonRetirarProducto extends JButton {
         public BotonRetirarProducto(String texto) {
@@ -88,6 +97,17 @@ public class PanelExpCompra extends JPanel {
                     PanelComprador.updateLabelMonedasText();
                 }
             }
+        }
+    }
+    private class BotonRellenarDepositos extends JButton {
+        public BotonRellenarDepositos(String texto) {
+            super(texto);
+            this.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    PanelPrincipal.expendedor.llenarDepositos(5);
+                    PanelExpProductos.updatePreciosyCantidad();
+                }
+            });
         }
     }
 }
