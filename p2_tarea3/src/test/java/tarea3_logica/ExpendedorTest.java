@@ -16,72 +16,75 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpendedorTest {
 
     private Expendedor exp;
-    private Comprador c;
     private Moneda m;
 
     @BeforeEach
     void setUp() {
         exp = new Expendedor(5);
-        c = new Comprador(5);
 
     }
 
     @Test
-    @DisplayName("Test de agregar monedas")
-    public void testAgregarMonedas() {
-        m = c.getMoneda(0);
-        exp.addMonedaPago(m);
-        assertEquals(100, exp.getDepMonedasPagadas().getDeposito().get(0).getValor());
-
-        m = c.getMoneda(1);
-        exp.addMonedaPago(m);
-        assertEquals(500, exp.getDepMonedasPagadas().getDeposito().get(1).getValor());
-
-        m = c.getMoneda(2);
-        exp.addMonedaPago(m);
-        assertEquals(1000, exp.getDepMonedasPagadas().getDeposito().get(2).getValor());
-
-        m = c.getMoneda(3);
-        exp.addMonedaPago(m);
-        assertEquals(1500, exp.getDepMonedasPagadas().getDeposito().get(3).getValor());
-
+    @DisplayName("Creacion de Expendedor")
+    void testCreacionExpendedor() {
+        assertNotNull(exp);
+        assertEquals(5, exp.dep_cocacola.getDeposito().size());
     }
 
     @Test
-    @DisplayName("Test de compra producto. Pago insuficiente")
-    public void testPagoInsuficiente() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
-        m = c.getMoneda(0);
-        exp.addMonedaPago(m);
-
-        try {
-            exp.elegirProducto(ProductEnum.COCA_COLA);
-            exp.comprarProducto();
-            Producto producto = exp.getProducto();
-            producto.toString();
-        }
-        catch (PagoInsuficienteException e) {
-            assertEquals("No alcanza el pago", e.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("Test de compra producto. Pago Correcto y da vuelto")
-    public void testCompraCorrecta() throws NoHayProductoException, PagoIncorrectoException, PagoInsuficienteException, DepositoOcupadoException {
-        m = c.getMoneda(3);
-        exp.addMonedaPago(m);
-        int vuelto = 0;
-
+    void testComprarProducto() throws DepositoOcupadoException, NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
         exp.elegirProducto(ProductEnum.COCA_COLA);
+        exp.addMonedaPago(new Moneda1000(1));
+        exp.addMonedaPago(new Moneda100(1));
+        exp.addMonedaPago(new Moneda100(2));
         exp.comprarProducto();
         Producto producto = exp.getProducto();
-        assertEquals("Coca-Cola", producto.getNombre());
+        assertNotNull(producto);
+    }
 
-        for (int i = 0; i < exp.getDepMonedasVuelto().getDeposito().size(); i++) {
-            Moneda m = exp.getDepMonedasVuelto().getDeposito().get(i);
-            System.out.println(m.getValor());
-            assertEquals(100, m.getValor());
-            vuelto += 100;
+    @Test
+    @DisplayName("Test vuelto")
+    void testVuelto() throws DepositoOcupadoException, NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+        exp.elegirProducto(ProductEnum.COCA_COLA);
+        exp.addMonedaPago(new Moneda1000(1));
+        exp.addMonedaPago(new Moneda1000(1));
+        exp.comprarProducto();
+        Producto producto = exp.getProducto();
+        assertEquals(800, exp.getDepMonedasVuelto().cuantoHay() * 100);
+    }
+
+    @Test
+    @DisplayName("Test Deposito Ocupado")
+    void testDepositoOcupado() throws DepositoOcupadoException, NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+        exp.elegirProducto(ProductEnum.COCA_COLA);
+        exp.addMonedaPago(new Moneda1000(1));
+        exp.addMonedaPago(new Moneda1000(2));
+        exp.comprarProducto();
+        exp.elegirProducto(ProductEnum.SUPER8);
+        exp.addMonedaPago(new Moneda1000(3));
+        assertThrows(DepositoOcupadoException.class, () -> exp.comprarProducto());
+    }
+
+    @Test
+    @DisplayName("Test No Hay Producto")
+    void testNoHayProducto() throws DepositoOcupadoException, NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+        for (int i = 0; i < 5; i++) {
+            exp.elegirProducto(ProductEnum.FANTA);
+            exp.addMonedaPago(new Moneda1000(i));
+            exp.comprarProducto();
+            exp.getProducto();
         }
-        System.out.println("Vuelto: " + vuelto);
+
+        exp.elegirProducto(ProductEnum.FANTA);
+        exp.addMonedaPago(new Moneda1000(6));
+        assertThrows(NoHayProductoException.class, () -> exp.comprarProducto());
+    }
+
+    @Test
+    @DisplayName("Test Pago Insuficiente")
+    void testPagoInsuficiente() throws DepositoOcupadoException, NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+        exp.elegirProducto(ProductEnum.COCA_COLA);
+        exp.addMonedaPago(new Moneda1000(1));
+        assertThrows(PagoInsuficienteException.class, () -> exp.comprarProducto());
     }
 }

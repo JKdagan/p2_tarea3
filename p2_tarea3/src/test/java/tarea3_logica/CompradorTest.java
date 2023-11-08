@@ -1,6 +1,8 @@
 package tarea3_logica;
 
 import Monedas.*;
+import Productos.CocaCola;
+import Productos.Producto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,10 +39,13 @@ class CompradorTest {
                 System.out.println(aux_dep_monedas.get(j).getValor());
             }
         }
+    }
 
-        assertEquals(100, comprador.getMoneda(0).getValor());
-        assertEquals(500, comprador.getMoneda(1).getValor());
-        assertEquals(1000, comprador.getMoneda(2).getValor());
-        assertEquals(1500, comprador.getMoneda(3).getValor());
+    @Test
+    @DisplayName("Test de productos")
+    public void testProductosComprador() {
+        comprador.addProducto(new CocaCola(1));
+        ArrayList<Producto> dep = comprador.getProductos();
+        assertNotNull(dep);
     }
 }
